@@ -1,0 +1,9 @@
+<div class="messages hidden">
+  {% block message %}{% endblock %}
+  {% for message in messages %}
+  <div class="alert alert-{{ message.tags }}" 
+       id="message{{ forloop.counter0 }}">
+    {{ message|safe }}
+  </div>
+  {% endfor %}
+</div>

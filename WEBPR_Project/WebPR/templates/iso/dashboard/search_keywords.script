@@ -1,0 +1,3 @@
+<script>
+var keywords = [{% for category in categories|dictsort:'code' %}{% if category.code %}{label: "{{ category.code }} - {{ category.name|truncatechars:49|escapejs }}",value: "{{ category.code }} - {{ category.name|escapejs }}",code: "{{ category.code }}",query: "{{ category.code }}",type: "category"},{% endif %}{% endfor %}{% for merchant in merchants %}{label: "{{ merchant.official_name|truncatechars:54|escapejs }}",value: "{{ merchant.official_name|escapejs }}",query: "{{ merchant.official_name|escapejs }}",type: "merchant"},{% endfor %}];
+</script>

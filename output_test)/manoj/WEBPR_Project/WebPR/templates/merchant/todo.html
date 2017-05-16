@@ -1,0 +1,124 @@
+{% load crispy_forms_tags %}
+<div class="block-controls flex-between">
+  <h5 name="todo_list">To-Do</h5>
+  <div style="margin-right: auto; padding-left: 60px">
+    <form action="#"
+          method="get"
+          id="form_todo">
+      <div class="custom-dropdown"
+           id="todo_filter"
+           align="left"
+           style="width: 150px">
+        {{ filter.form.status }}
+      </div>
+    </form>
+  </div>
+  <div class="flex-between">
+    {% include 'merchant/paginator.html' with paginator_class="tpage" paginator_id="todo_table" %}
+  </div>
+</div>
+<table class="table table-hover table-heading">
+  <thead>
+    <tr>
+      <th width="40"></th>
+      <th>Description</th>
+      <th width="230">Assigned To</th>
+      <th width="80">Priority</th>
+      <th width="100">Due Date</th>
+      <th width="80" 
+          class="text-center">Source</th>
+    </tr>
+  </thead>
+</table>
+<table class="table table-body waitable waiting">
+  <tbody>
+  {% if page_obj %}
+    {% for todo in page_obj %}
+    <tr>
+      <td width="40">
+        <div class="custom-checkbox">
+          <input type="checkbox" 
+                 id="id-{{ forloop.counter }}" 
+                 class="hidden" 
+                 {% if todo.is_closed %}
+                 checked="checked"
+                 {% endif %}>
+          <label for="id-{{ forloop.counter }}" 
+                 class="btn-switch" 
+                 data-url="{% url 'mentions:update_todo' todo.id %}" 
+                 data-id="{{ todo.id }}"></label>
+        </div>
+      </td>
+      <td>
+        <div class="to-do-desc" >
+          <a href="" 
+             class="to-do-detail" 
+             data-toggle="modal" 
+             data-target="#todo_detail" 
+             id="{{ forloop.counter0 }}" 
+             onclick="TodoDetailView(this); return false;">{{ todo.comment|truncatewords:3 }}</a>
+          <div class="form-to-do-detail hidden">
+            <div id="todo_detail{{ forloop.counter0 }}">
+              <h4>To-Do# {{ todo.id }}</h4>
+              <div>
+                <h5> Mention text: </h5>
+                <div id="todo_mention_text{{ forloop.counter0 }}">{{ todo.mention.mention_text }}</div>
+                <hr>
+                <a href="{{ todo.mention.mention_link }}" 
+                   target="_blank">View source</a>
+              </div>
+              <hr>
+              <div>ToDo description:
+                <div>{{ todo.comment }}</div>
+                <hr>
+                {{ todo.created|date:"M/d/y" }} - {% if todo.due_date %}{{ todo.due_date|date:"M/d/y" }}{% else %}Not defined{% endif %}
+              </div>
+              <hr>
+            </div>
+          </div>
+        </div>
+      </td>
+      <td width="230">{% if todo.user.avatar %}
+        <img src="{{ todo.user.avatar.url }}" 
+             alt="Avatar" 
+             class="img-circle mr10">{% endif %}<b>{{ todo.user }}</b></td>
+      <td width="80">
+        <b>{{ todo.get_priority_display }}</b>
+      </td>
+      <td width="100">
+        <i class="font-size11">{{ todo.due_date|date:"m/d/y" }}</i>
+      </td>
+      {% with 'img/icons/'|add:todo.mention.origin_site|add:'.png' as icon %}
+      <td width="80" 
+          class="text-center">
+        <img src="{% static icon %}" 
+            alt="Logo" 
+            class="img-fluid"></td>
+      {% endwith %}
+    </tr>
+    {% endfor %}
+    {% else %}
+    <tr>
+      <td colspan="6" 
+          align="center" 
+          style="font-size: inherit">No data has been found</td>
+    </tr>
+  {% endif %}
+  </tbody>
+</table>
+
+{% include 'merchant/todo_detail.html' %}
+{% if not blank %}
+<script>
+  /* global $ */
+  'use strict';
+
+  $(document).on('click', '.to-do-detail', function() {
+    var id = $(this).attr('id');
+
+    $('#detail_comment').html(
+      $('#todo_detail' + id).html()
+    );
+  });
+</script>
+{% endif %}

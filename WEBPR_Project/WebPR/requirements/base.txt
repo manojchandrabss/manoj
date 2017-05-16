@@ -1,0 +1,138 @@
+# A simple wrapper around optparse for powerful command line utilities.
+click==6.2
+
+# *************************************************                                        
+# Django packages
+# *************************************************
+
+# We're not ready to migrate to 1.9 as a lot of packages we use
+# fails. Dmitry Gorobets tried on Chattifly project, so let's wait
+# few months before using 1.9 (it gets bugs polished and packaged will
+# bring 1.9 support)
+django==1.9.1
+django-appconf==1.0.1
+
+# ORM Caching layer for Django Models
+django-cacheops==2.4.3
+
+# Control CORS headers from within the app
+django-cors-headers==1.1.0
+
+# Fast creatin of model instances. May be used in tests
+factory_boy==2.6.0
+
+# Authentication system with 'batteries included'
+django-allauth==0.24.1
+
+# The app provides a tag and filter that lets you quickly render forms
+django-crispy-forms==1.5.2
+
+# filter querysets dynamically
+django-filter==0.11.0
+
+# Ability to work with Postgres' HSTORE extension
+django-hstore==1.4.1
+
+# Raw operations on the image (like to crop avatars etc)
+django-imagekit==3.3
+
+# Nice addons to simplify ORM layer
+django-model-utils==2.4
+
+
+# APNS and GCM push notifications
+django-push-notifications==1.3.1
+
+
+
+# PDF Support
+pdfkit==0.5.0
+
+
+# Pusher support
+
+pusher==1.2.3
+
+
+# GDAL
+#GDAL==2.0.1
+
+# Storage to AWS S3
+django-storages-redux==1.3
+
+# A better UI for Django Admin 1.8
+# In future upgrade to Django 1.9 we should eliminate from this package
+django-suit==0.2.15
+
+# Tags for any DB model
+django-taggit==0.17.6
+
+# Nice functional tools
+funcy==1.6
+
+# One of its main features is a set of processors which expose a simple interface for performing manipulations on PIL images.
+pilkit==1.1.13
+
+# Pillow is the friendly PIL fork by Alex Clark and Contributors. PIL is the Python Imaging Library by Fredrik Lundh and Contributors.
+Pillow==3.0.0
+
+# Database abstraction layer
+psycopg2==2.6.1
+
+# A Python implementation of JSON Web Token draft 32
+PyJWT==1.4.0
+
+# Timezones and datetime utils
+python-dateutil==2.4.2
+Delorean==0.6.0
+pytz==2015.7
+
+# redis SDK
+redis==2.10.5
+
+# sendgrid SDK and django email backend
+sendgrid==1.4.0
+sendgrid-django==1.4.0
+
+
+simplegeneric==0.8.1
+six==1.10.0
+smtpapi==0.2.0
+traitlets==4.0.0
+twilio==5.0.0
+wheel==0.24.0
+
+
+
+#localization toolkit
+django-localflavor==1.2
+
+#async toolkit
+django-celery==3.1.17
+
+#google-api-python-client
+google-api-python-client==1.4.2
+
+# html parser
+beautifulsoup4==4.4.1
+
+# Julian date converter
+jdcal==1.2
+
+# django avatar
+django-avatar==2.2.1
+
+# Manage weeks by iso calendar
+isoweek==1.3.0
+
+# django braces for web hook
+django-braces==1.8.1
+
+# Facebook api sdk
+facebook-sdk==1.0.0
+
+# monitor for celery
+flower==0.9.1
+
+# actions for django admin
+django-object-actions==0.8.2

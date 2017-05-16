@@ -1,0 +1,17 @@
+{% extends 'base_content.html' %}
+{# TODO: crispy form #}
+
+{% block content %}
+<div class="container" 
+     align="left">
+  <h2>Form to create fake mentions for testing purposes</h2>
+  <h3>Note: if status is "Not analysed", mentions will not be shown and you will be able to start sentiment analysis for this mention later</h3>
+  <form action="" 
+        method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" 
+           value="OK">
+  </form>
+</div>
+{% endblock %}

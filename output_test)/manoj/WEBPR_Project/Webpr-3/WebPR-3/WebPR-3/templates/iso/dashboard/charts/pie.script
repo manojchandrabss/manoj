@@ -1,0 +1,38 @@
+<script src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.0.0/Chart.js'></script>
+<script>
+'use strict';
+var ctxPie = document.getElementById('pie'),
+  myChart = new Chart(ctxPie, {
+    type: 'pie',
+    animation:{
+        animateScale:true
+    },
+    data: {
+      labels: [
+        'You',
+        'Indusrty'
+      ],
+      datasets: [
+          {
+            data: [300, 50],
+            backgroundColor: [
+              '#FF6384',
+              '#36A2EB'
+              ],
+              hoverBackgroundColor: [
+                '#FF6386',
+                '#36A2EB'
+              ]
+          }]
+      },
+      options: {
+        bezierCurve: false,
+        scaleShowGridLines: false,
+        scaleShowHorizontalLines: false,
+        scaleShowVerticalLines: false,
+        pointDot: false,
+        showScale: false,
+        showTooltips: true
+      }
+  });
+</script>

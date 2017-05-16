@@ -1,0 +1,51 @@
+<div class="list-group-item mention pl10 pr10">
+  <div class="media mb0">
+    <div class="media-left">
+      {% if mention.sentiment == 'negative' %}
+      <i class="fa fa-circle dot-red"></i>
+      {% elif mention.sentiment == 'positive' %}
+      <i class="fa fa-circle dot-green"></i>
+      {% else %}
+      <i class="fa fa-circle dot-orange"></i>
+      {% endif %}
+    </div>
+    <div class="media-body">
+      {% with 'img/icons/'|add:mention.get_origin_site_display|add:'.png' as icon %}
+      <h4 class="media-heading">
+        <a href="" 
+           class="mention_detail"  
+           data-toggle="modal" 
+           data-target="#mention_detail" 
+           id="{{ tracker.id }}-{{ mention.u_id }}" 
+           onclick="MentionDetailView(this);">ID#{{ mention.u_id.int|truncatechars:8 }}</a>&nbsp;
+        <a href="{{ mention.mention_link }}" 
+           id="mention_link_list{{ tracker.id }}-{{ mention.u_id }}" 
+           target="_blank">
+           {% if mention.get_origin_site_display %}
+           <img src="{% static icon %}" 
+                alt="Logo" 
+                class="img-fluid ml20" 
+                style="margin-bottom: 5px">
+           {% endif %}
+        </a>
+      </h4>
+      {% endwith %}
+      <p>{{ mention.mention_text|truncatechars:140 }}</p>
+      <div id="mention_full_text{{ tracker.id }}-{{ mention.u_id }}" 
+           class="hidden">{{ mention.mention_text }}</div>
+      <div class="date">
+        {% if mention.mention_date %}
+        {{ mention.mention_date }}
+        {% else %}
+        Not available
+        {% endif %}
+        <i class="fa fa-circle"></i>
+        {% ifequal mention.status "Assigned" %}
+        {{ mention.status }}
+        {% else %}
+        Unassigned
+        {% endifequal %}
+      </div>
+    </div>
+  </div>
+</div>

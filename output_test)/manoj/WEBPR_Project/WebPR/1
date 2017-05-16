@@ -1,0 +1,54 @@
+FROM ssci/base 
+### Documentation for the image: 
+### https://gitblit.saritasa.com/tree/?f=centos7-python343-nginx-uwsgi&r=saritasa/docker/images.git&h=development
+
+RUN yum install libffi-devel -y
+RUN yum install gcc
+
+
+### isntall python 3.4.3
+CMD cd /usr/src
+CMD wget https://www.python.org/ftp/python/3.4.3/Python-3.4.3.tgz
+CMD tar xzf Python-3.4.3.tgz
+
+CMD cd Python-3.4.3
+CMD  ./configure
+CMD  make altinstall
+CMD rm Python-3.4.3.tgz
+
+CMD python --version
+
+ENV APP_ENV development
+ENV DJANGO_SETTINGS_MODULE config.settings.development
+
+RUN mkdir -p /var/log/uwsgi
+RUN mkdir -p /home/www/app
+
+### for enabling ipython auto-indent feature
+#RUN yum install python34-setuptools -y
+RUN easy_install-3.4 pip
+RUN yum install ncurses-devel -y
+RUN pip3.4 install readline
+
+### Add config files to container
+ADD .docker /tmp/docker
+
+# Add an entry-point
+RUN fromdos /tmp/docker/start.sh
+RUN cp /tmp/docker/start.sh /home/www
+RUN chmod +x /home/www/start.sh
+
+### Install dependencies
+COPY requirements /home/www/app/requirements
+RUN pip3.4 install -r /home/www/app/requirements/development.txt
+
+WORKDIR /home/www/app
+
+### Run our container
+ENTRYPOINT []
+CMD ["bash", "/home/www/start.sh"]
+
+### Add source code to container
+ADD . /home/www/app/
+
+

@@ -1,0 +1,32 @@
+{% load crispy_forms_tags %}
+
+<div id="createUserModal" 
+     tabindex="-1" 
+     role="dialog" 
+     aria-labelledby="createUserLabel" 
+     class="modal centered fade add-user">
+  <div role="document" 
+       class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body">
+        <h5 id="createUserLabel" 
+            class="modal-title">Add User</h5>
+        <div class="avatar center-block mb20">
+          <i class="fa fa-camera" 
+             id="i-camera"></i>
+          <img class="avatar center-block" 
+               src="" 
+               name="avatar" 
+               id="preview-ava" 
+               style="display:none">
+        </div>
+        {% crispy form %}
+        <div class="text-center mt10">
+          <a href="javascript:void(0);" 
+             data-dismiss="modal" 
+             data-handler="close" 
+             class="btn btn-link">Cancel</a></div>
+      </div>
+    </div>
+  </div>
+</div>

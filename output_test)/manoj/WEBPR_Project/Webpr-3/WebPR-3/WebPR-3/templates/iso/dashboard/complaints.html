@@ -1,0 +1,65 @@
+<h5 class="mt0">Complaints</h5>
+<div class="panel panel-red">
+  <div class="panel-heading">Most Recent</div>
+  <div class="panel-body p0 waitable waiting">
+    <div class="list-group">
+      {% if complaints %}
+      {% for complaint in complaints %}
+      <div class="list-group-item pl10 pr10">
+        <div class="media mb0">
+          <div class="media-left">
+            <i class="fa fa-circle dot-red"></i></div>
+          <div class="media-body">
+            {% with 'img/icons/'|add:complaint.get_origin_site_display|add:'.small.png' as icon %}
+              <h4 class="media-heading">
+                <a href="" 
+                   class="mention_detail" 
+                   data-toggle="modal" 
+                   data-target="#mention_detail" 
+                   id="{{ forloop.counter0 }}" 
+                   onclick="MentionDetailView(this);">ID#{{ complaint.u_id.int|truncatechars:8 }}</a>
+              <a type="hidden" 
+                 href="{{ complaint.mention_link }}" 
+                 id="mention_link_list{{ forloop.counter0 }}" 
+                 target="_blank">{% if complaint.get_origin_site_display %} 
+                <img src="{% static icon %}" 
+                     alt="Logo" 
+                     class="img-fluid ml20" 
+                     style="margin-bottom: 5px"> {% endif %}</a></h4>
+            {% endwith %}
+            <p>{{ complaint.mention_text|truncatewords:5 }}</p>
+            <p>
+              #<a href="javascript:void(0);" 
+                  data-handler="click" 
+                  class="click-handler">{{ complaint.merchant }}</a>
+            </p>
+            <div class="date">
+              {% if complaint.mention_date %}
+              {{ complaint.mention_date }}
+              {% else %}
+              Not available
+              {% endif %}
+              <i class="fa fa-circle"></i>
+              {% ifequal complaint.status "Assigned" %}
+              {{ complaint.status }}
+              {% else %}
+              Unassigned
+              {% endifequal %}
+            </div>
+            <i style="display: none" 
+               id="mention_full_text{{ forloop.counter0 }}">{{ complaint.mention_text }}</i>
+            {% include "merchant/mention_detail.html" %}
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+      {% else %}
+      <div class="list-group-item pl10 pr10">
+        <div class="media mb0">
+          <h4 align="center">No complaints</h4>
+        </div>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+</div>

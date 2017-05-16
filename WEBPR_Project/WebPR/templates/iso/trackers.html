@@ -1,0 +1,113 @@
+{% extends 'base_content.html' %}
+
+{% block content %}
+<div role="main" 
+     class="container">
+  <div class="starter-template">
+    <div class="row equal-height">
+      <div class="sidebar sm">
+        <div class="block-element">
+          <ul class="nav nav-sidebar">
+            <li>
+              <a id="add-tracker" 
+                 href="javascript:void(0);">
+                <i class="icon icon-add"></i>
+              </a>
+            </li>
+            {% for merch in merchants %}
+            <li>
+              <a href="{% url 'mentions:merchant' merch.pk %}" 
+                 title="{{ merch.official_name }}">
+                <i class="icon icon-lists"></i>
+                <div>{{ merch.official_name|truncatewords:1 }}</div>
+              </a>
+            </li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+      <div class="block-content">
+        <div class="block-top clearfix">
+          <div class="pull-left">
+            <div class="form-inline">
+              <div class="form-group">
+                <h2>Trackers</h2>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="block-main full">
+          <div class="block-horizontal-scroll">
+          {% for tracker in trackers %}
+            {% include 'iso/trackers/tracker.html' %}
+          {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- An empty hidden tracker's block for inserting to list -->
+<div class="panel panel-default tracker hidden" 
+     data-page="1">
+  <div class="panel-heading clearfix flex-center-items">
+    <h4 class="pull-left"></h4>
+    <!--<div class="label label-red pull-left">10</div>-->
+    <a class="icon icon-settings settings" 
+       onclick="Tracker.toggleSettings(this); return false;"></a>
+  </div>
+  <div onscroll="Tracker.scrollListener(this);" 
+       class="panel-body p0">
+    <div class="form-wrapper hidden">
+      {% include 'iso/trackers/tracker_form.html' %}
+    </div>
+    <div class="list-group" 
+         data-count="0"></div>
+  </div>
+</div>
+
+{% include "merchant/mention_detail.html" %}
+
+<script>
+  /* globals $, Tracker */
+  'use strict';
+
+  /**
+   * controller for Tracker
+   *
+   * @constructor
+   */
+  function PageController() {
+
+    /**
+     * init the controller
+     *
+     * @return {undefined}
+     */
+    function init() {
+      // event for plus button
+      $('#add-tracker').click(function() {
+        Tracker.add();
+      });
+      // hide opened popover when there is a click outside of it.
+      $(document).mouseup(function(e) {
+        var $popover = $('.popover, .icon-settings');
+        if (!$popover.is(e.target) && $popover.has(e.target).length === 0) {
+          Tracker.closeSettings();
+        }
+      });
+    }
+
+    init();
+  }
+</script>
+{% endblock %}
+
+{% block javascript %}
+{{ block.super }}
+<script>
+  // initialize the Page controller
+  this.controller = new PageController();
+</script>
+{% endblock %}

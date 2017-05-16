@@ -1,0 +1,15 @@
+.dropdown:hover .dropdown-menu {
+    display: inherit;
+    background: #535a61;
+    color: #8b8f94;
+}
+
+.dropdown-menu li a{
+    background: #535a61;
+    color: #8b8f94;
+}
+.dropdown-menu li a:hover {
+    background: #535a61;
+    color: #ffffff;
+}
+

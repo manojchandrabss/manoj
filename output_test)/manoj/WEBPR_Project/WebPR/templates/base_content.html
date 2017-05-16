@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<body>
+  {% include 'includes/navigation.html' with user=user company=company %}
+  {% include 'includes/messages.html' with messages=messages %}
+  {% block content %}{% endblock %}
+
+  {% block javascript %}
+  {% if debug %}
+  <script src="{% static 'bower.js' %}"></script>
+  <script src="{% static 'app.js' %}"></script>
+  {% else %}
+  <script src="{% static 'bower.min.js' %}"></script>
+  <script src="{% static 'app.min.js' %}"></script>
+  {% endif %}
+  {% endblock %}
+</body>
+{% endblock %}

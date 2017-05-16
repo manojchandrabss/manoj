@@ -1,0 +1,13 @@
+current directory: /home/manoj/.chefdk/gem/ruby/2.3.0/gems/json-2.0.3/ext/json/ext/generator
+/opt/chefdk/embedded/bin/ruby -r ./siteconf20170117-8999-mt7arp.rb extconf.rb
+creating Makefile
+
+current directory: /home/manoj/.chefdk/gem/ruby/2.3.0/gems/json-2.0.3/ext/json/ext/generator
+make "DESTDIR=" clean
+sh: 1: make: not found
+
+current directory: /home/manoj/.chefdk/gem/ruby/2.3.0/gems/json-2.0.3/ext/json/ext/generator
+make "DESTDIR="
+sh: 1: make: not found
+
+make failed, exit code 127

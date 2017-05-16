@@ -1,0 +1,27 @@
+#!/bin/bash
+
+
+set +x
+
+#source directory
+source_dir="/home/ftp/product"
+# backup directory
+backup_dir="/home/backup"
+backup_date=`date +%Y_%m_%d_%H_%M`
+backup_path=${backup_dir}/${backup_date}
+mkdir -p $backup_path
+
+#array for the directories
+declare -a output
+
+output=(`ls $source_dir  | sed 's/\s\+/\n/g'`)
+
+for directory  in "${output[@]}"
+
+do
+
+cp -r $sorce_dir/$directory $backup_path
+ 
+done
+
+

@@ -1,0 +1,31 @@
+{% load crispy_forms_tags %}
+
+<div id="createMerchantModal" 
+     tabindex="-1" 
+     role="dialog" 
+     aria-labelledby="createMerchantModal" 
+     class="modal centered add-merchant fade lg">
+  <div role="document" 
+       class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header pb0">
+        <h2 id="createMerchantLabel" 
+            class="modal-title">Add Merchant</h2>
+      </div>
+      <div class="modal-body">
+        <div id="create_merchant_form">
+          {% crispy form %}
+        </div>
+        <div class="text-center mt10">
+          <a href="{% url 'mentions:bulk_import' %}" 
+             class="btn btn-link">Bulk import</a>
+        </div>
+        <div class="text-center mt10">
+          <button href="javascript:void(0);" 
+                  data-handler="close" 
+                  class="btn btn-link click-handler">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

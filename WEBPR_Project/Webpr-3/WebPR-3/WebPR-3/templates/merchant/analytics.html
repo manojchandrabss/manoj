@@ -1,0 +1,905 @@
+{% extends 'base_content.html' %}
+
+{% block content %}
+<div class="hidden" 
+     id="company_id">{{ company.id }}</div>
+<div role="main" 
+     class="container">
+  <div class="starter-template">
+    <div class="row equal-height">
+      {% include 'merchant/left_panel.html' %}
+      <div class="block-content">
+        <div class="block-top clearfix">
+          <div class="pull-left">
+            <div class="form-inline">
+              <div class="form-group">
+                <h2>Dashboard</h2>
+              </div>
+            </div>
+          </div>
+        </div>
+        {% include 'merchant/top_charts.html' with company=company %}
+        <div class="block-main analytics">
+          <div id="todo_ajax" 
+               data-url="{% url 'mentions:todo_list' company.id %}" 
+               data-merchant-id="{{ company.id }}">
+            {% include 'merchant/todo.html' with blank=1 %}
+          </div>
+          <div id="mentions_ajax" 
+               data-url="{% url 'mentions:mention_list' company.id %}" 
+               data-merchant-id="{{ company.id }}">
+            {% include 'merchant/mentions.html' %}
+          </div>
+        </div>
+        {% include 'merchant/rigth_panel.html' %}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% include 'merchant/add_user.html' with form=user_add_form %}
+{% include 'merchant/update_merchant.html' %}
+
+<script>
+  /* globals _, $, AJAX, APP, FORM, Popover */
+  'use strict';
+
+  /**
+   * user modal dialog controller, realizes creating new merchant using
+   * AJAX.
+   *
+   * @constructor
+   * @param {object} dialog a modal dialog element of the page
+   */
+  function UserModalDialogController(dialog) {
+    var exports = {},
+      form = dialog.find('form'),
+      eventHandlers = [],
+      successTemplate = _.template('User { name } successfully added');
+
+    /**
+     * click `hide` button handler
+     *
+     * @return {undefined}
+     */
+    exports.hide = function() {
+      // hide modal
+      dialog.modal('hide');
+    };
+
+    /**
+     * function to display choosen userpick in native aspect ratio
+     *
+     * @returns {undefined}
+     */
+    function _setUserpic() {
+      var base64image = $('#preview-ava').attr('src');
+      $('.avatar.mb20').css({
+        'background-image': 'url(' + base64image + ')',
+        'background-size': 'cover',
+        'background-repeat': 'no-repeat',
+        'background-position': 'center'
+      });
+      $('#preview-ava').css('opacity', '0');
+    }
+
+    /**
+     * clear exist errors
+     *
+     * @returns {undefined}
+     */
+    function _clearForm() {
+      // clear fields
+      form.clearForm();
+      // hide opened multiple fields
+      form.find('.clear-value').parent().addClass('hidden');
+      // clean errors
+      FORM.clearErrors(form);
+      // clean userpic
+      $('#preview-ava').attr('src', '').hide();
+      $('#i-camera').show();
+      $('.avatar.mb20').css('background-image', 'none');
+    }
+
+    /**
+     * click Close button handler
+     *
+     * @return {undefined}
+     */
+    function _clickClose() {
+      // hide modal
+      exports.hide();
+    }
+
+    /**
+     * click Save button handler
+     *
+     * @return {undefined}
+     */
+    function _clickSave() {
+      console.log('Save clicked');
+    }
+
+    // private event handlers
+    eventHandlers = {
+      close: _clickClose,
+      save: _clickSave
+    };
+
+    /**
+     * init the class
+     *
+     * @return {undefined}
+     */
+    function init() {
+      // set up form
+      form.ajaxForm({
+        dataType: 'json',
+        type: 'post',
+        beforeSubmit: function() {
+          form.find('button[type=submit]').attr('disabled', 'disabled');
+        },
+        success: function(data) {
+          APP.msg.success(successTemplate({name: data.name}));
+          // hide dialog
+          form.find('button[type=submit]').removeAttr('disabled');
+          exports.hide();
+        },
+        error: function(data) {
+          APP.msg.error('Form has errors');
+          // inserting errors into form
+          FORM.insertErrors(form, data);
+          form.find('button[type=submit]').removeAttr('disabled');
+        }
+      });
+      // bind events
+      dialog.find('button').on('click', function() {
+        var handler = $(this).data('handler');
+        eventHandlers[handler]();
+      });
+      // clean form after Bootstrap modal hidden
+      dialog.on('hidden.bs.modal', function() {
+        _clearForm();
+      });
+      // handles avatar preview when some image selected as
+      // base64-encoded image
+      dialog.on('change', 'input[name=avatar]', function(e) {
+        var f = e.target.files[0],
+          reader = new FileReader(),
+          preview = $('#preview-ava'),
+          camera = $('#i-camera');
+        reader.readAsDataURL(f);
+        reader.onload = function(e) {
+          preview.attr('src', e.target.result);
+          preview.show();
+          camera.hide();
+          _setUserpic();
+        };
+      });
+      // it is works as `select file` button for hidden file input
+      $('#i-camera, #preview-ava').click(function() {
+        $('input[name=avatar]').click();
+      });
+    }
+
+    init();
+    return exports;
+  }
+
+  /**
+   * mention controller - adding events for each mention.
+   *
+   * @constructor
+   * @param {object} mention - a jQuery object of a mention HTML.
+   */
+  function MentionController(mention) {
+    var eventHandlers = {},
+      popover = Popover;
+
+    /**
+     * click `close` button handler
+     *
+     * @param {form} form - jQuery object that is in the popover.
+     * @return {undefined}
+     */
+    function _clickClose(form) {
+      popover.close(form.closest('.popover'));
+    }
+
+    /**
+     * click `create` button handler
+     *
+     * @param {form} form - jQuery object.
+     * @return {undefined}
+     */
+    function _clickCreate(form) {
+      if (form.valid()) {
+        var todo = form.formParams();
+        // lock button
+        form.find('button[type=submit]').attr('disabled', 'disabled');
+        AJAX.
+        createTodoForMention(todo)
+          .done(function() {
+            APP.msg.success('Todo sucessfully added!');
+            // clear errors
+            FORM.clearErrors(form);
+            // hide popover
+            popover.close(mention.find('.popover'));
+            // update Todo`s list
+            // document.todosController.getTodos();
+            EVENTS.publish('update', 'add-todo');
+          })
+          .fail(function(data) {
+            APP.msg.error('Form has errors');
+            // inserting errors into form
+            FORM.insertErrors(form, data);
+          })
+          .always(function() {
+            // unlock button
+            form.find('button[type=submit]').removeAttr('disabled');
+          });
+      }
+    }
+
+    /**
+     * click `flag` button handler
+     *
+     * @param {object} obj - jQuery object.
+     * @return {undefined}
+     */
+    function _clickToggleFlag(obj) {
+      var params = {
+        merchantId: obj.data('merchant-id'),
+        mentionUId: obj.data('uid')
+      };
+
+      AJAX.
+      mentionFlagToggle(params)
+        .done(function(data) {
+          APP.msg.success(String('Status "' + data.status + '" changed. ' +
+                                 'Ratings will be recalculated later.'));
+          EVENTS.publish('update', 'toggle-flag');
+        })
+        .fail(function(data) {
+          APP.msg.error(data.error);
+        });
+    }
+
+    // private event handlers
+    eventHandlers = {
+      toggleFlag: _clickToggleFlag,
+      create: _clickCreate,
+      close: _clickClose
+    };
+
+    /**
+     * init the class
+     *
+     * @return {undefined}
+     */
+    function init() {
+      mention.on('click', '.click-handler', function() {
+        var obj = null;
+
+        switch ($(this).data('handler')) {
+        case 'create':
+          obj = $(this).closest('form');
+          break;
+        case 'close':
+          obj = $(this).closest('form');
+          break;
+        default:
+          obj = $(this).closest('.list-group-item');
+          break;
+        }
+
+        eventHandlers[$(this).data('handler')](obj);
+      });
+      mention.hover(function() {
+        $(this).addClass('hover');
+      }, function() {
+        var $sel = $(this).find('select');
+        if (!$sel.is(':focus')) {
+          $(this).removeClass('hover');
+        }
+      });
+    }
+
+    init();
+  }
+
+  /**
+   * mentions list controller
+   *
+   * @constructor
+   * @param {object} container - container with mentions control and
+   *                             mentions list.
+   */
+  function MentionsListController(container) {
+    var exports = {},
+      mentionController = MentionController;
+
+    /**
+     * callback implementation for jquery .html() with .promise().
+     *
+     * @returns {undefined}
+     */
+    function _htmlCallback() {
+      _.each(container.find('.list-group-item'), function(element) {
+        mentionController($(element));
+      });
+    }
+
+    /**
+     * toggle spinner for the container
+     *
+     * @param {string} statusChoice - mentions status (all, assigned,
+     *                 unassigned). Default is `all`.
+     * @param {number} pageNumber - page number for pagination. Default is 1.
+     * @returns {undefined}
+     */
+    exports.update = function(statusChoice, pageNumber) {
+      var merchantId = container.data('merchant-id'),
+        status = $('#id_mention_status option:selected').val();
+
+      status = statusChoice || status;
+      // add spinner
+      APP.spinner.show(container.find('.waitable'));
+
+      AJAX.
+      getMentionsForMerchant(merchantId, status, pageNumber)
+        .success(function(data) {
+          // add callback that bind events for the responsed data
+          container.html(data).promise().done(function() {
+            _htmlCallback();
+          });
+        })
+        .always(function() {
+          APP.spinner.hide(container.find('.waitable'));
+        });
+    };
+
+    /**
+     * init the class
+     *
+     * @return {undefined}
+     */
+    function init() {
+      // load initial list of 5 mentions
+      exports.update();
+      // filter by status
+      container.on('change', '#id_mention_status', function() {
+        exports.update($(this).val());
+      });
+      // pagination
+      container.on('click', '.mpage', function() {
+        exports.update($('#id_mention_status option:selected').val(),
+                       $(this).attr('id'));
+        return false;
+      });
+    }
+
+    init();
+    return exports;
+  }
+
+  /**
+   * todos list controller
+   *
+   * @constructor
+   * @param {object} container - container with todos control and
+   *                             todos list.
+   */
+  function TodosListController(container) {
+    var exports = {};
+
+    /**
+     * toggle spinner for the container
+     *
+     * @param {string} statusChoice - mentions status (all, assigned,
+     *                 unassigned). Default is `all`.
+     * @param {number} pageNumber - page number for pagination. Default is 1.
+     * @returns {undefined}
+     */
+    exports.update = function(statusChoice, pageNumber) {
+      var merchantId = container.data('merchant-id');
+      // add spinner
+      APP.spinner.show(container.find('.waitable'));
+
+      AJAX.
+      getTodosForMerchant(merchantId, statusChoice, pageNumber)
+        .done(function(data) {
+          // add callback that bind events for the responsed data
+          container.html(data);
+        })
+        .always(function() {
+          APP.spinner.hide(container.find('.waitable'));
+        });
+    };
+
+    /**
+     * toggle Todo's status: is_closed `true` or `false`.
+     *
+     * @param {number} id - todo ID.
+     * @returns {undefined}
+     */
+    exports.toggleTodoStatus = function(id) {
+      var status = $('#id_status option:selected').val();
+
+      AJAX.
+      toggleTodoStatus(id)
+        .done(function() {
+          exports.update(status);
+          EVENTS.publish('update', 'change-todo-status');
+        });
+    };
+
+    /**
+     * init the class
+     *
+     * @return {undefined}
+     */
+    function init() {
+      // load initial list of 5 mentions
+      exports.update();
+       // filter by status
+      container.on('change', '#id_status', function() {
+        exports.update($(this).val());
+      });
+      // pagination
+      container.on('click', '.tpage', function() {
+        exports.update($('#id_status option:selected').val(),
+                       $(this).attr('id'));
+        return false;
+      });
+      // checkboxes for todo-status
+      container.on('click', '.btn-switch', function() {
+        exports.toggleTodoStatus($(this).data('id'));
+      });
+    }
+
+    init();
+    return exports;
+  }
+
+  /**
+   * controller for Merchant's Perfomance Tracking
+   *
+   * @constructor
+   * @param {object} container - container with place for the chart and scores
+   */
+  function PerfomanceTrackingChartController(container) {
+    var exports = {};
+
+    /**
+     * display data for scores widgets
+     *
+     * @param {object} data - responsed data
+     * @returns {undefined}
+     */
+    function _setScore(data) {
+      var merchantScore = Math.round(data.merchant_score[6]),
+        industryScore = Math.round(data.industry_score[6]),
+        industryText = TOOLS.truncatechars(data.industry,
+                                           CONFIG.MAX_LABEL_LENGTH);
+      // if industry does not exists - set text and score
+      if (!data.has_industry) {
+        industryScore = '-';
+        industryText = 'No industry';
+      }
+      // set WebPR merchant's score
+      $('#merchant_score_circle').html(merchantScore);
+      // set Average Score
+      $('#merchant_score').text(merchantScore);
+      // set Industry score
+      $('#industry_score').text(industryScore);
+      $('#industry').text(industryText);
+      // set merchant name
+      $('#company_name').text($('#id_official_name').val());
+      // set a note for scores
+      if (merchantScore > industryScore) {
+        $('#score_comment').html('above');
+      } else if (merchantScore < industryScore) {
+        $('#score_comment').html('below');
+      } else {
+        $('#score_comment').html('the same as');
+      }
+    }
+
+    /**
+     * update charts and scores
+     *
+     * @returns {undefined}
+     */
+    exports.update = function() {
+      var params = {
+        keywordType: 'merchant',
+        period: 'week',
+        filter: TOOLS.unescapeUnicode(
+          $('#company_name').attr('data-company-name'))
+      };
+
+      APP.spinner.show(container.find('.waitable'));
+      APP.spinner.show($('#score').find('.waitable'));
+
+      AJAX.
+      getDataForPerfomanceTrackingChart(params)
+        .done(function(data) {
+          // set chart data
+          CHARTS.buildPerformanceTrackerChart(data.scores, data.x_legend);
+          // set scores
+          _setScore(data);
+        })
+        .always(function() {
+          APP.spinner.hide(container.find('.waitable'));
+          APP.spinner.hide($('#score').find('.waitable'));
+        });
+    };
+
+    /**
+     * init the class
+     *
+     * @return {undefined}
+     */
+    function init() {
+      exports.update();
+    }
+
+    init();
+    return exports;
+  }
+
+  /**
+   * controller for Merchant's Mentions widget
+   *
+   * @constructor
+   * @param {object} container - container with mentions chart controls
+   */
+  function MentionsWidgetController(container) {
+    var exports = {};
+
+    /**
+     * set active button
+     *
+     * @param {string} period - period of data filtering
+     * @returns {undefined}
+     */
+    function _setActive(period) {
+      var button = container.find('[data-period=' + period + ']');
+
+      container.find('.period-toggle').removeClass('active');
+      button.addClass('active');
+    }
+
+    /**
+     * toggle spinner for the container
+     *
+     * @param {string} period - a period for the chart`s data filtering
+     * @returns {undefined}
+     */
+    exports.update = function(period) {
+      var params = {
+        keywordType: 'merchant',
+        filter: TOOLS.unescapeUnicode($('#company_name').data('company-name'))
+      };
+      // set period, default is `week`
+      params.period = period || 'week';
+
+      APP.spinner.show(container.find('.waitable'));
+
+      AJAX.
+      getDataForMentionsChart(params)
+        .done(function(data) {
+          // set chart data
+          CHARTS.buildMerchantMentionsChart(data.negative, data.positive,
+                                            data.neutral);
+          // set selected button
+          _setActive(params.period);
+        })
+        .always(function() {
+          APP.spinner.hide(container.find('.waitable'));
+        });
+    };
+
+    /**
+     * init the class
+     *
+     * @return {undefined}
+     */
+    function init() {
+      exports.update();
+      // handle click for date toggler
+      container.on('click', '.click-handler', function() {
+        exports.update($(this).data('period'));
+      });
+    }
+
+    init();
+    return exports;
+  }
+
+  /**
+   * controller for Merchant's Response Rate widget
+   *
+   * @constructor
+   * @param {object} container - container with mentions chart controls
+   */
+  function ResponseRateWidgetController(container) {
+    var exports = {},
+      company = TOOLS.unescapeUnicode($('#company_name').data('company-name'));
+
+    /**
+     * set active button
+     *
+     * @param {string} period - period of data filtering
+     * @returns {undefined}
+     */
+    function _setActive(period) {
+      var button = container.find('[data-period=' + period + ']');
+
+      container.find('.period-toggle').removeClass('active');
+      button.addClass('active');
+    }
+
+    /**
+     * update chart
+     *
+     * @param {string} period - a period for the chart`s data filtering
+     * @returns {undefined}
+     */
+    exports.update = function(period) {
+      var params = {
+          keywordType: 'merchant',
+          filter: company
+        },
+        chart = null;
+      // set period, default is `week`
+      params.period = period || 'week';
+
+      APP.spinner.show(container.find('.waitable'));
+
+      AJAX.
+      getDataForMerchantResponseRateChart(params)
+        .done(function(data) {
+          container.html(data).promise().done(function() {
+            chart = container.find('.chart');
+            CHARTS.buildResponseRateChart(container, chart.data('solved'),
+                                          chart.data('unsolved'));
+            // set selected button
+            _setActive(params.period);
+          });
+        })
+        .always(function() {
+          APP.spinner.hide(container.find('.waitable'));
+        });
+    };
+
+    /**
+     * init the class
+     *
+     * @return {undefined}
+     */
+    function init() {
+      exports.update();
+      // handle click for date toggler
+      container.on('click', '.click-handler', function() {
+        exports.update($(this).data('period'));
+      });
+    }
+
+    init();
+    return exports;
+  }
+
+  /**
+   * merchant modal dialog controller, realizes updating merchant using AJAX.
+   *
+   * @constructor
+   * @param {object} dialog a modal dialog element of the page
+   */
+  function MerchantModalController(dialog) {
+
+    var exports = {},
+      form = dialog.find('form'),
+      eventHandlers = [],
+      phoneMask = '999-999-9999',
+      zipCodeMask = '99999',
+      successTemplate = _.template('Merchant { name } successfully updated!');
+
+    /**
+     * click `hide` button handler, hide modal with Bootstrap method.
+     *
+     * @return {undefined}
+     */
+    exports.hide = function() {
+      // hide modal
+      dialog.modal('hide');
+    };
+
+    /**
+     * click `create` button handler
+     *
+     * @return {undefined}
+     */
+    function _clickSave() {
+      // collect search settings
+      FORM.collectSearchSettings(form);
+
+      if (form.valid()) {
+        var merchant = form.formParams();
+        // set merhcant ID
+        merchant.id = dialog.data('id');
+        // join sources to string
+        merchant.sources = _.join(merchant.sources, ',');
+        // lock button
+        form.find('button[type=submit]').attr('disabled', 'disabled');
+        // make request and ger response
+        AJAX.
+        updateMerchant(merchant)
+          .done(function() {
+            // clear existing errors
+            FORM.clearErrors(form);
+            // show success message
+            APP.msg.success(successTemplate({name: dialog.find('h2').text()}));
+            // hide modal
+            exports.hide();
+            // set new merchant's name
+            $('#company_name').attr('data-company-name',
+                                    $('#id_official_name').val());
+            // update widgets
+            EVENTS.publish('update', 'update-merchant');
+          })
+          .fail(function(data) {
+            APP.msg.error('Form has errors');
+            // inserting errors into form
+            FORM.insertErrors(form, data);
+          })
+          .always(function() {
+            // unlock button
+            form.find('button[type=submit]').removeAttr('disabled');
+          });
+      }
+    }
+
+    /**
+     * click Close button handler
+     *
+     * @return {undefined}
+     */
+    function _clickClose() {
+      exports.hide();
+    }
+
+    /**
+     * add field
+     *
+     * @param {object} element - an element that has been clicked
+     * @return {undefined}
+     */
+    function _clickAddField(element) {
+      $(element).next().find('.hidden:first')
+                       .removeClass('hidden');
+    }
+
+    /**
+     * hide field
+     *
+     * @param {object} element - an element that has been clicked
+     * @return {undefined}
+     */
+    function _clickRemoveField(element) {
+      $(element).parent().addClass('hidden')
+                         .find('input')
+                         .val('');
+    }
+
+    // private event handlers
+    eventHandlers = {
+      create: _clickSave,
+      close: _clickClose,
+      addField: _clickAddField,
+      removeField: _clickRemoveField
+    };
+
+    /**
+     * init the class
+     *
+     * @return {undefined}
+     */
+    function init() {
+      // add checkboxes to some fields
+      FORM.addCheckboxes(form);
+      // init category autocomplete
+      $('.chosen-select').chosen({search_contains: true});
+      // add mask for fields
+      $('.phone-masked-input input').mask(phoneMask);
+      $('#id_zip_code').mask(zipCodeMask);
+      $('#id_location_3').mask(zipCodeMask);
+      // bind events
+      dialog.find('.click-handler').on('click', function() {
+        var handler = $(this).data('handler');
+        eventHandlers[handler](this);
+      });
+    }
+
+    init();
+    return exports;
+  }
+
+  /**
+   * the page controller. Base controller for the dashboard.
+   *
+   * @constructor
+   */
+  function PageController() {
+    var modals = [],
+      objects = [],
+      widgets = [];
+
+    /**
+     * update widgets that stored in the page controlle (controller.widgets)
+     *
+     * @param {string} event - event's name, for this will be updated widgets
+     * @returns {undefined}
+     */
+    function _updateWidgets(event) {
+      // get objects that have this event
+      objects = widgets.filter(function(e) {
+        return e.actions.indexOf(event) >= 0;
+      });
+      // update objects with this event
+      _.each(objects, function(item) {
+        item.obj.update();
+      });
+    }
+
+    /**
+     * init the controller
+     *
+     * @return {undefined}
+     */
+    function init() {
+      // adds modals
+      modals.push(
+        new UserModalDialogController($('#createUserModal')),
+        new MerchantModalController($('#updateMerchantModal'))
+      );
+      // adds widgets in dict for update when events happening
+      widgets.push({
+        obj: new TodosListController($('#todo_ajax')),
+        actions: ['toggle-flag', 'add-todo', 'update-merchant']
+      }, {
+        obj: new MentionsListController($('#mentions_ajax')),
+        actions: ['toggle-flag', 'update-merchant']
+      }, {
+        obj: new PerfomanceTrackingChartController($('#merchant_top_score')),
+        actions: ['update-merchant']
+      }, {
+        obj: new MentionsWidgetController($('#merchant_mentions')),
+        actions: ['update-merchant']
+      }, {
+        obj: new ResponseRateWidgetController($('#merchant_resp_rate')),
+        actions: [
+          'add-todo', 'change-todo-status',
+          'toggle-flag', 'update-merchant'
+        ]
+      });
+      // set company ID
+      $('input[name=\'id\']').val($('#company_id').html());
+      // register a subscribe
+      EVENTS.subscribe('update', function(event) {
+        _updateWidgets(event);
+      });
+    }
+
+    init();
+  }
+</script>
+{% endblock %}
+
+{% block javascript %}
+{{ block.super }}
+<script>
+  this.controller = new PageController();
+</script>
+{% endblock %}

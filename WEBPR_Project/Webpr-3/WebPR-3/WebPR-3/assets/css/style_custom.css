@@ -1,0 +1,298 @@
+.login-message {
+  width: 400px;
+    padding: 40px 60px 30px 60px;
+    background: #f6f7fb;
+}
+
+.login-message .logo {
+    margin-bottom: 40px;
+    text-align: center;
+}
+
+.login-message hr {
+    margin: 20px -60px;
+}
+
+.controls.sm input {
+    height: 30px;
+}
+
+.controls.sm .form-control {
+    font-size: 11px;
+    font-style: italic;
+    line-height: 18px;
+}
+
+/* custom style for complaint block */
+.block-right.dashboard .panel {
+    height: auto;
+}
+.block-right.dashboard .panel .panel-body {
+    overflow-x: hidden;
+    overflow-y: auto;
+    min-height: 80px;
+    height: auto;
+}
+
+/* custom style for input on add merchant form */
+.controls.sm select {
+    height: 30px;
+}
+
+/* customization for resolved complaints rate - toggles for periods*/
+.active .period-toggle{
+    color: #ffffff;
+}
+.period-toggle{
+    color: #717a84;
+}
+
+.period-toggle:hover{
+    color: #ffffff;
+    cursor: pointer;
+}
+
+/* custom style for 'a' tag that has .icon */
+a.icon:hover {
+    text-decoration: none;
+}
+
+/* inline checkboxes for a tracker form */
+.checkboxes-inline .controls > .checkbox {
+    display: inline-block;
+    padding-right: 15px;
+}
+
+/* Color for close button */
+.btn-dark {
+    color: #333 !important;
+}
+
+/* Wrapper for button, will make it aligned */
+.btn-wrapper {
+    padding: 10px 15px 0 15px;
+}
+
+/* list-group */
+.list-group-item.note {
+    font-size: 11px;
+    font-style: italic;
+    line-height: 15px;
+    color: #656565;
+}
+.list-group-item.note:hover {
+    background: none !important;
+}
+.list-group-item > .media {
+    margin-bottom: 0;
+}
+
+/* Relative positioning for correct absolute popovers */
+.panel.tracker {
+    position: relative;
+}
+
+.panel.tracker:last-child .popover.bottom {
+    margin-left: -140px;
+}
+
+.panel.tracker:last-child .popover.bottom .arrow {
+    margin-left: 127px;
+}
+
+.panel.tracker:first-child .popover.bottom {
+    margin-left: -60px;
+}
+
+.panel.tracker:first-child .popover.bottom .arrow {
+    left: 100% !important;
+    margin-left: -105px;
+}
+
+/* Rewrite font styles */
+.fa {
+    display: inline-block;
+    font: normal normal normal 14px/1 FontAwesome;
+    font-size: inherit;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+.fa-angle-left:before {
+    content: "\f104";
+}
+.fa-angle-right:before {
+    content: "\f105";
+}
+.fa-search:before {
+    content: "\f002";
+}
+.fa-camera:before {
+    content: "\f030";
+}
+.fa-caret-down:before {
+    content: "\f0d7";
+}
+.fa-caret-up:before {
+    content: "\f0d8";
+}
+.fa-flag:before {
+    content: "\f024";
+}
+.fa-circle:before {
+    content: "\f111";
+}
+.fa-circle-o:before {
+    content: "\f10c";
+}
+.fa-plus:before {
+    content: "\f067";
+}
+.fa-plus-square:before {
+    content: "\f0fe";
+}
+.fa-share-square-o:before {
+    content: "\f045";
+}
+.fa-comment:before {
+    content: "\f075";
+}
+.fa-gear:before,
+.fa-cog:before {
+    content: "\f013";
+}
+.fa-edit:before,
+.fa-pencil-square-o:before {
+    content: "\f044";
+}
+.fa-recycle:before {
+    content: "\f1b8";
+}
+
+/* cut long titles in dashboard's score widget */
+.vs .col-value .caption {
+    word-wrap: break-word;
+    word-break: break-word;
+}
+
+/* jQuery Autocomplete, fix height */
+.ui-widget-content {
+    max-height: 339px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+/* bootstrap-chosen */
+.chosen-container-single .chosen-single {
+    height: 30px;
+    line-height: 30px;
+    border-radius: 0;
+}
+
+/* loading indicators */
+.waiting * {
+    visibility: hidden;
+}
+.waiting {
+    min-height: 80px;
+    background: url('img/spinner.gif') center center no-repeat;
+}
+.waiting.dark {
+    background: url('img/spinner-dark.gif') center center no-repeat;
+}
+
+/* tables for widgets */
+.table-heading {
+    border-bottom: none;
+    border-radius: 2px 2px 0 0;
+    margin-bottom: 0;
+    table-layout: fixed;
+}
+.table-body {
+    border-radius: 0 0 2px 2px;
+    table-layout: fixed;
+}
+.table-body.waiting {
+    background-color: #fff;
+    display: block;
+}
+
+/* alertify */
+.alertify-logs {
+    z-index: 20000;
+}
+
+/* navbar */
+.navbar-default .navbar-nav>li > a .custom-title {
+    font-size: 12px;
+    line-height: inherit;
+}
+
+/* links */
+a.link-as-text:hover {
+    cursor: default;
+}
+a.link-as-text:hover,
+a.link-as-text:focus {
+    color: #8b8f94 !important;
+}
+
+.nav-sidebar > li.inactive {
+    box-shadow: none;
+}
+.nav-sidebar > li.inactive a {
+    color: #8b8f94;
+    background: none;
+}
+.nav-sidebar > li.inactive a:hover {
+    cursor: default;
+    background: none;
+}
+
+/* charts */
+.no-data-message {
+    text-align: center;
+    position: absolute;
+    top: 50%;
+    margin-top: -1em;
+    left: 50%;
+    transform: translate(-50%);
+}
+
+/* blocks */
+.block-content.full-width {
+    width: 100%;
+}
+
+/* widgets */
+.widget .form-inline .form-group {
+    display: block;
+}
+.widget .form-inline .form-group .block-search {
+    width: 100%;
+}
+
+/* flagged items */
+.block-buttons > .item.flagged > .fa-flag {
+    color: #d0021b;
+}
+.block-buttons > .item:hover {
+    text-decoration: none;
+}
+
+/* navbar logo */
+.navbar-default .navbar-brand {
+    padding: 8px 20px;
+}
+
+/* checkboxes */
+.controls.sm .checkbox-custom label {
+    color: gray;
+}
+.controls.sm .checkbox-custom input,
+.checkboxes-inline .controls.sm input {
+    height: auto;
+}
+.checkboxes-nomargin .controls > .checkbox {
+    margin: 0;
+}

@@ -1,0 +1,51 @@
+<div class="panel panel-gradient">
+  <div class="panel-heading">The Big 5</div>
+  <div class="panel-body waitable waiting">
+    <div class="text-center">
+      <div class="form-inline total">
+        <div class="form-group complaints-left flex-between">
+          <div class="text-center">
+            <h3 class="mt0 mb0">{{ total_complaints }}</h3>
+            <p>Total Complaints</p>
+          </div>
+        </div>
+        <div class="form-group complaints-right">
+          <div class="progress service">
+            <div style="width: {{ yelp_per }}%" 
+                 class="progress-bar progress-red"></div>
+            <div style="width: {{ facebook_per }}%" 
+                 class="progress-bar progress-violet-blue"></div>
+            <div style="width: {{ google_per }}%" 
+                 class="progress-bar progress-blue-violet"></div>
+            <div style="width: {{ ripoffreport_per }}%" 
+                 class="progress-bar progress-light-green"></div>
+            <div style="width: {{ bbb_per }}%" 
+                 class="progress-bar progress-light-aqua"></div>
+          </div>
+          <div class="form-inline flex-between">
+            <div class="form-group">
+              <h5>{{ yelp }}</h5>
+              <p>Yelp</p>
+            </div>
+            <div class="form-group">
+              <h5>{{ facebook }}</h5>
+              <p>Facebook</p>
+            </div>
+            <div class="form-group">
+              <h5>{{ google }}</h5>
+              <p>Google</p>
+            </div>
+            <div class="form-group">
+              <h5>{{ ripoffreport }}</h5>
+              <p>Ripoff Report</p>
+            </div>
+            <div class="form-group">
+              <h5>{{ bbb }}</h5>
+              <p>BBB</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

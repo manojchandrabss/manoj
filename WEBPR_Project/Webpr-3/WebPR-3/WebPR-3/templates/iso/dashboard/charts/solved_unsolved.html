@@ -1,0 +1,31 @@
+<div class="panel panel-gradient">
+  <div class="panel-heading">Resolved v. Unresolved</div>
+  <div class="panel-body waitable waiting">
+    <div class="text-center">
+      <div class="form-inline">
+        <div class="form-group">
+          <div class="text-center">
+            <h4 class="mt0 mb0">{{ solved }}</h4>
+            <p>Resolved</p>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="progress progress-rounded solved">
+            <div role="progressbar" 
+                 aria-valuenow="1" 
+                 aria-valuemin="0" 
+                 aria-valuemax="100" 
+                 style="width: {{ rate }}%;" 
+                 class="progress-bar progress-green"></div>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="text-center">
+            <h4 class="mt0 mb0">{{ unsolved }}</h4>
+            <p>Unresolved</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,19 @@
+{% load mentions_filter %}
+<div class="panel panel-default tracker" 
+     data-id="{{ tracker.id }}" 
+     data-page="1">
+  <div class="panel-heading clearfix flex-center-items">
+    <h4 class="pull-left">
+      <a href="{{ tracker.merchant.get_absolute_url }}">{{ tracker.merchant.official_name }}</a>
+    </h4>
+    <a class="icon icon-settings settings" 
+       onclick="Tracker.toggleSettings(this); return false;"></a>
+  </div>
+  <div onscroll="Tracker.scrollListener(this);" 
+       class="panel-body p0">
+    {% mentions_filter tracker as mentions_list %}
+    <div class="list-group list-group-{{ tracker.id }}">
+      {% include 'iso/trackers/mentions_list.html' with object_list=mentions_list %}
+    </div>
+  </div>
+</div>

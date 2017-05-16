@@ -1,0 +1,55 @@
+<div id="current_date" 
+     style="display: none">{% now 'd m y' %}</div>
+<div class="form-inline" 
+     style="width: 400px">
+  <div class="form-group">
+    <ul class="nav nav-pills" 
+        id="toggle_period">
+      <li role="presentation" 
+          id="WEEK" 
+          data-period="week" 
+          data-handler="period" 
+          class="active click-handler">
+        <a href="javascript:void(0);">WEEK</a>
+      </li>
+      <li role="presentation" 
+          id="MONTH" 
+          data-period="month" 
+          data-handler="period" 
+          class="click-handler">
+        <a href="javascript:void(0);">MONTH</a>
+      </li>
+    </ul>
+  </div>
+  <div class="form-group">
+    <div class="date-range">
+      <div class="form-inline">
+        <div class="form-group" 
+             style="width: 200px;">
+           <span id="date_range"></span>
+        </div>
+        <div class="form-group" >
+          <ul class="pager" 
+              id="date_toggle">
+            <li>
+              <a href="javascript:void(0);" 
+                 data-direction="prev" 
+                 data-handler="date" 
+                 class="click-handler">
+                <i class="fa fa-angle-left"></i>
+              </a>
+            </li>
+            <li>
+              <a href="javascript:void(0);" 
+                 data-direction="next" 
+                 data-handler="date" 
+                 class="click-handler">
+                <i class="fa fa-angle-right"></i>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

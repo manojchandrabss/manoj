@@ -1,0 +1,21 @@
+#!/bin/bash
+
+set +x
+
+
+TIME=`date +%b-%d-%y`            # This Command will add date in Backup File Name.
+FILENAME=backup-$TIME.tar.gz    # Here i define Backup file name format.
+SRCDIR=/home/manoj                   # Location of Important Data Directory (Source of backup).
+DESDIR=/tmp            # Destination of backup file.
+
+declare -a output
+output=('ls -ltr /home/manoj | awk '{print $9}' > /home/manoj/output_test)')
+
+for BACK_UP  in "${output[@]}"
+
+do
+mkdir -p $DESDIR/$TIME/$BACK_UP/
+BACK_dir=$DESDIR/$TIME/$BACK_UP/
+cp -r  $SRCDIR/ /$BACK_dir
+done
+

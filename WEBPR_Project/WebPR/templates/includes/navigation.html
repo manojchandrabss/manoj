@@ -1,0 +1,64 @@
+{% load account %}
+<div role="navigation"
+     class="navbar navbar-default">
+  <div class="container">
+    <div class="navbar-header pull-left">
+      {% ifequal user.account.type 'i'  %}
+      <a href="/" 
+         class="navbar-brand">
+      {% else %}
+      <a href="{% url 'mentions:merchant' company.id %}"
+         class="navbar-brand">
+        {% endifequal %}
+        <img src="{% static 'img/logo.png' %}" 
+             alt="Logo" 
+             class="img-responsive"/>
+      </a>
+    </div>
+    <div class="navbar-collapse pull-right">
+      <ul class="nav navbar-nav navbar-right">
+        {% ifequal user.account.type 'i'  %}
+        <li>
+          <a href="{% url 'mentions:trackers' %}" 
+             title="Tracker page">
+            <i class="icon icon-lists"></i>
+            <span class="label label-red"></span>
+          </a>
+        </li>
+        <li>
+          <a href="{% url 'mentions:statistics' %}" 
+             title="Reporting page">
+            <i class="icon icon-graph"></i>
+          </a>
+        </li>
+        {% endifequal %}
+        <li class="dropdown">
+          <a href="javascript:void(0);" 
+             data-toggle="dropdown" 
+             role="button" 
+             aria-expanded="false"><i class="icon icon-profile"></i></a>
+          <ul class="dropdown-menu">
+            <li>
+              <a href="{% url 'account_logout' %}">
+                <i class="fa fa-sign-out"></i>Log Out</a>
+            </li>
+          </ul>
+        </li>
+        {% if user.is_superuser %}
+        <li>
+          <a href="{% url 'admin:index' %}" 
+             target="_blank">
+            <i class="fa fa-gear"></i>
+          </a>
+        </li>
+        {% endif %}
+        <li>
+          <a href="javascript:void(0);" 
+             class="link-as-text">
+            <span class="custom-title">{{ user.account.company_name }}</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

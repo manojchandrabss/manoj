@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+{% spaceless %}
+<html>
+  <head>
+    <meta http-equiv="X-UA-Compatible" 
+          content="IE=edge" />
+    <meta charset="utf-8" />
+    <title>{% block title %}WebPR{% endblock title %}</title>
+    <meta name="description" 
+          content="" />
+    <link rel="shortcut icon" 
+          type="image/x-icon" 
+          sizes="16x16" 
+          href="{% static 'img/favicon.ico' %}">
+    {% block styles %}
+    {% if debug %}
+    <link rel="stylesheet" 
+          href="{% static 'bower.css' %}" />
+    <link rel="stylesheet" 
+          href="{% static 'app.css' %}" />
+    {% else %}
+    <link rel="stylesheet" 
+          href="{% static 'bower.min.css' %}" />
+    <link rel="stylesheet" 
+          href="{% static 'app.min.css' %}" />
+    {% endif %}
+    {% endblock %}
+  </head>
+  {% block body %}{% endblock %}
+</html>
+{% endspaceless %}

@@ -1,0 +1,77 @@
+<div class="form-add-to-do hidden" 
+     id="todo-popup">
+  <form method="post" 
+        id="addtodo{{ forloop.counter }}" 
+        name="addtodo" 
+        action="{% url 'mentions:addtodo' %}">
+    {% csrf_token %}
+    <input type="hidden" 
+           value="{{ mention.u_id }}" 
+           name="mention_uid">
+    <input type="hidden" 
+           value="{{ company.id }}" 
+           name="company">
+    <input type="hidden" 
+           value="{{ page_obj.number }}" 
+           name="page">
+    <input type="hidden" 
+           value="{{ todo_list.number }}" 
+           name="todo_page">
+    <h5 class="mt0">Add To-Do</h5>
+    <div id="div_id_user" 
+         class="form-group">
+      <label class="mb5">Assign to</label>
+      <div class="controls">
+        <select class="form-control" 
+                id="id_user" 
+                name="user">
+          {% for user in users %}
+          <option value="{{ user.id }}">{{ user.username }}</option>
+          {%  endfor %}
+        </select>
+      </div>
+    </div>
+    <div id="div_id_comment" 
+         class="form-group">
+      <label class="mb5">Description</label>
+      <div class="controls">
+        <textarea rows="3" 
+                  class="form-control" 
+                  id="id_comment" 
+                  name="comment"></textarea>
+      </div>
+    </div>
+    <div id="div_id_priority" 
+         class="form-group">
+      <label class="mb5">Priority</label>
+      <div class="controls">
+        <select class="form-control" 
+                id="id_priority" 
+                name="priority">
+          {% for prior in priority %}
+          <option value="{{ prior.0 }}">{{ prior.1 }}</option>
+          {%  endfor %}
+        </select>
+      </div>
+    </div>
+    <div id="div_id_due_date" 
+         class="form-group">
+      <label class="mb5">Due date</label>
+      <div class="controls">
+        <input type="date" 
+               class="form-control" 
+               name="due_date" 
+               id="id_due_date" />
+      </div>
+    </div>
+    <button type="submit" 
+            class="btn btn-lg btn-blue btn-block click-handler" 
+            id="submit_todo" 
+            data-handler="create" 
+            onclick="return false;">Save</button>
+    <div class="text-center mt10 hide-add-todo">
+      <a class="btn btn-link click-handler" 
+         data-handler="close">Cancel</a>
+    </div>
+  </form>
+</div>

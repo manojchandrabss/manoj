@@ -1,0 +1,61 @@
+<div class="sidebar">
+  <div class="block-element">
+    <div id="score" 
+         data-url="{% url 'mentions:score' %}">
+      <div class="score waitable waiting dark">
+        <div class="circle" 
+             id="merchant_score_circle"></div>
+        <h4 id="company_name" 
+            data-company-name="{{ company.official_name|escapejs }}">
+          {{ company.official_name }}
+        </h4>
+        <div class="title">WEBPR SCORE</div>
+      </div>
+    </div>
+  </div>
+  <div class="block-element">
+    <div class="nav-title">WEBPR QUICK TOOLS</div>
+  </div>
+  <div class="block-element">
+    <ul class="nav nav-sidebar">
+      <li class="inactive">
+        <a href="javascript:void(0);">
+          <i class="fa fa-comment"></i>COMPOSE
+        </a>
+      </li>
+      <li class="inactive">
+        <a href="javascript:void(0);">
+          <i class="fa fa-share-square-o"></i>SHARE
+        </a>
+      </li>
+      <li>
+        <a href="" 
+           data-toggle="modal" 
+           data-target="#createUserModal">
+          <i class="fa fa-plus-square"></i>ADD USER
+        </a>
+      </li>
+      <li>
+        <a href="" 
+           data-toggle="modal" 
+           data-target="#updateMerchantModal">
+          <i class="fa fa-pencil-square-o"></i>EDIT MERCHANT
+        </a>
+      </li>
+      <li>
+        <a href="{% url 'mentions:reset_mentions' company.id %}" 
+           onclick="return confirm('Warning: all mentions will be removed permanently. Continue?');">
+          <i class="fa fa-recycle"></i>RESET MENTIONS
+        </a>
+      </li>
+    </ul>
+  </div>
+  <div class="popover left show">
+    <div class="arrow"></div>
+    <h3 class="popover-title"><i class="fa fa-check-circle"></i>WEBPR TIP</h3>
+    <div class="popover-content">
+      <p>Creating custom content to post on your social media platform 
+        increases audience participation and online presence!</p>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,381 @@
+{% extends 'base_content.html' %}
+
+{% block content %}
+<div role="main" 
+     class="container">
+  <div class="starter-template">
+    <div class="row equal-height">
+      <div class="block-content full-width">
+        <div class="block-top clearfix">
+          <div class="pull-left">
+            <div class="form-inline">
+              <div class="form-group">
+                <h2>Reporting Page</h2>
+              </div>
+            </div>
+          </div>
+          <div class="pull-right"
+               id="search_panel">
+            {% include 'iso/dashboard/date_toggle.html' %}
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6 col-xs-6 widget" 
+               data-type="by-source" 
+               data-id="1">
+            <div class="form-inline">
+              <div class="form-group has-feedback">
+                <div class="block-search ml0">
+                  <input type="text" 
+                         autocomplete="off" 
+                         placeholder="Entire Portfolio" 
+                         class="form-control typeahead">
+                  <i aria-hidden="true" 
+                     class="fa fa-search form-control-feedback"></i>
+                </div>
+              </div>
+            </div>
+            <div class="panel panel-gradient mt10">
+              <div class="panel-heading">Complaints by Source</div>
+              <div class="panel-body waitable">
+                <div class="chart" data-id="1">
+                  <canvas width="610" 
+                          height="270"></canvas>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-6 col-xs-6 widget" 
+               data-type="by-source" 
+               data-id="2">
+            <div class="form-inline">
+              <div class="form-group has-feedback">
+                <div class="block-search ml0">
+                  <input type="text" 
+                         autocomplete="off" 
+                         placeholder="Entire Portfolio" 
+                         class="form-control typeahead">
+                  <i aria-hidden="true" 
+                     class="fa fa-search form-control-feedback"></i>
+                </div>
+              </div>
+            </div>
+            <div class="panel panel-gradient mt10">
+              <div class="panel-heading">Complaints by Source</div>
+              <div class="panel-body waitable">
+                <div class="chart">
+                  <canvas width="610" 
+                          height="270"></canvas>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row mt20">
+          <div class="col-md-6 col-xs-6 widget" 
+               data-type="over-time" 
+               data-id="1">
+            <div class="form-inline">
+              <div class="form-group has-feedback">
+                <div class="block-search ml0">
+                  <input type="text" 
+                         autocomplete="off" 
+                         placeholder="Entire Portfolio" 
+                         class="form-control typeahead">
+                  <i aria-hidden="true" 
+                     class="fa fa-search form-control-feedback"></i>
+                </div>
+              </div>
+            </div>
+            <div class="panel panel-gradient mt10">
+              <div class="panel-heading">Complaints Over Time</div>
+              <div class="panel-body waitable">
+                <div class="chart">
+                  <canvas id="complaints3" 
+                          width="610" 
+                          height="270"></canvas>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-6 col-xs-6 widget" 
+               data-type="over-time"
+               data-id="2">
+            <div class="form-inline">
+              <div class="form-group has-feedback">
+                <div class="block-search ml0">
+                  <input type="text" 
+                         autocomplete="off" 
+                         placeholder="Entire Portfolio" 
+                         class="form-control typeahead">
+                  <i aria-hidden="true" 
+                     class="fa fa-search form-control-feedback"></i>
+                </div>
+              </div>
+            </div>
+            <div class="panel panel-gradient mt10">
+              <div class="panel-heading">Complaints Over Time</div>
+              <div class="panel-body waitable">
+                <div class="chart">
+                  <canvas id="complaints4" 
+                          width="610" 
+                          height="270"></canvas>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  /* globals _, $, AJAX, APP, CHARTS, keywords */
+  'use strict';
+
+  /**
+   * controller for the base widget
+   *
+   * @constructor
+   * @param {object} container - container with chart and controls
+   */
+  function WidgetController(container) {
+    var THROTTLE_DELAY = 100,
+      exports = {},
+      searchField = container.find('.typeahead'),
+      widgetId = container.data('id'),
+      widgetType = container.data('type'),
+      charts = {
+        'by-source': {
+          chart: CHARTS.buildComplaintsBySourceChart,
+          ajax: AJAX.getDataForComplaintsBySourceChart
+        },
+        'over-time': {
+          chart: CHARTS.buildComplaintsOverTimeChart,
+          ajax: AJAX.getDataForComplaintsOverTimeChart
+        }
+      };
+
+    /**
+     * function for getting filter data for the widget.
+     *
+     * @returns {object} JSON - "query", "type", "date" and "period".
+     */
+    exports.getFilterParams = function() {
+      var query = searchField.val(),
+        keyword = keywords.filter(function(keyword) {
+          return keyword.value === query;
+        })[0],
+        keywordType = keyword ? keyword.type : '',
+        keywordQuery = keyword ? keyword.query : '';
+
+      return {
+        'filter': keywordQuery,
+        'keywordType': keywordType,
+        'date': $('#current_date').html(),
+        'period': $('#toggle_period').children('.active').data('period')
+      };
+    };
+
+    /**
+     * update: load data and update chart.
+     *
+     * @returns {undefined}
+     */
+    exports.update = function() {
+      var params = exports.getFilterParams();
+
+      APP.spinner.show(container.find('.waitable'));
+
+      charts[widgetType]
+        .ajax(params)
+        .done(function(data) {
+          charts[widgetType].chart(container, widgetId, data);
+        })
+        .always(function() {
+          APP.spinner.hide(container.find('.waitable'));
+        });
+    };
+
+    /**
+     * get widget name like "by-date-1".
+     *
+     * @returns {string} name - the widget name.
+     */
+    exports.getName = function() {
+      return String(widgetType + '-' + widgetId);
+    };
+
+    /**
+     * init the class
+     *
+     * @return {undefined}
+     */
+    function init() {
+      exports.update();
+      // set autocomplete
+      searchField.customAutoComplete({
+        source: _.sortBy(keywords, 'label'),
+        delay: 0,
+        minLength: 0,
+        select: function() {
+          EVENTS.publish('update', {
+            event: 'search',
+            name: exports.getName()
+          });
+        },
+        search: $.throttle(THROTTLE_DELAY, function() {
+          if (!searchField.val().length) {
+            EVENTS.publish('update', {
+              event: 'search',
+              name: exports.getName()
+            });
+            searchField.customAutoComplete('close');
+            return false;
+          }
+          return true;
+        })
+      });
+    }
+
+    init();
+    return exports;
+  }
+
+
+  /**
+   * filter data by search keywords, date period and interval.
+   *
+   * @constructor
+   * @param {object} container - jQuery object that contains filter controls.
+   */
+  function FilterController(container) {
+    var eventHandlers = {};
+
+    /**
+     * click period toggle handler
+     *
+     * @param {object} element - jQuery object
+     * @returns {undefined}
+     */
+    function _clickPeriod(element) {
+      $('#toggle_period').find('.active')
+                         .removeClass('active');
+      element.addClass('active');
+      setRangeDisplay(function() {
+        EVENTS.publish('update', {event: 'period'});
+      });
+    }
+
+    /**
+     * click date toggle handler
+     *
+     * @param {object} element - jQuery object
+     * @returns {undefined}
+     */
+    function _clickDate(element) {
+      $('#current_date').text(element.attr('data-date'));
+      setRangeDisplay(function() {
+        EVENTS.publish('update', {event: 'date'});
+      });
+    }
+
+    eventHandlers = {
+      'period': _clickPeriod,
+      'date': _clickDate
+    };
+
+    /**
+     * init the controller
+     *
+     * @return {undefined}
+     */
+    function init() {
+      setRangeDisplay();
+
+      container.on('click', '.click-handler', function() {
+        eventHandlers[$(this).data('handler')]($(this));
+      });
+    }
+
+    init();
+  }
+
+  /**
+   * the page controller. Base controller for the dashboard.
+   *
+   * @constructor
+   */
+  function PageController() {
+    var DEBOUNCE_DELAY = 500,
+      exports = {},
+      objects = [],
+      widgets = [],
+      debouncedUpdateWidgets = null;
+
+    /**
+     * update widgets that stored in the page controlle (controller.widgets)
+     *
+     * @param {object} params - params: "event" and "name"
+     * @returns {undefined}
+     */
+    function updateWidgets(params) {
+      var event = params.event,
+        name = params.name || null;
+      // objects, filtered by event and name, for update
+      objects = widgets.filter(function(e) {
+        if (name) {
+          return e.actions.indexOf(event) >= 0 && e.name === name;
+        }
+
+        return e.actions.indexOf(event) >= 0;
+      });
+      // update objects with this event
+      _.each(objects, function(item) {
+        item.obj.update();
+      });
+    }
+
+    // debounced function for update charts after filter actions
+    debouncedUpdateWidgets = _.debounce(updateWidgets, DEBOUNCE_DELAY);
+
+    /**
+     * init the controller
+     *
+     * @return {undefined}
+     */
+    function init() {
+      // add widgets
+      _.each($('.widget'), function(e) {
+        var widget = new WidgetController($(e));
+        widgets.push({
+          name: widget.getName(),
+          obj: widget,
+          actions: ['period', 'date', 'search']
+        });
+      });
+      // init main filters controller, for these will call "update".
+      exports.filterController = new FilterController($('#search_panel'));
+      // register a subscribe
+      EVENTS.subscribe('update', function(params) {
+        debouncedUpdateWidgets(params);
+      });
+    }
+
+    init();
+    return widgets;
+  }
+</script>
+{% endblock %}
+
+{% block javascript %}
+{{ block.super }}
+{% include 'iso/dashboard/search_keywords.script' %}
+<script>
+  // init the page controller
+  this.controller = new PageController();
+</script>
+{% endblock %}

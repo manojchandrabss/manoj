@@ -1,0 +1,851 @@
+{% extends 'base_content.html' %}
+
+{% block content %}
+<div role="main" 
+     class="container">
+  <div class="starter-template">
+    <div class="row equal-height">
+      {% include 'iso/dashboard/left_panel.html' %}
+      <div class="block-content">
+        <div class="block-top clearfix" 
+             id="filter">
+          <div class="pull-left">
+            <div class="form-inline">
+              <div class="form-group">
+                <h2>Dashboard</h2>
+              </div>
+              <div class="form-group has-feedback">
+                <div class="block-search">
+                  <input type="search" 
+                         autocomplete="off" 
+                         class="form-control typeahead" 
+                         id="merchant_search">
+                    <i aria-hidden="true" 
+                       class="fa fa-search form-control-feedback"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="pull-right" 
+               id="search_panel">
+            {% include 'iso/dashboard/date_toggle.html' %}
+          </div>
+        </div>
+        <div class="block-main">
+          <div id="perfomance_tracker">
+            {% include 'iso/dashboard/charts/performance_tracker.html' %}
+          </div>
+          <div id="mentions_chart" 
+               data-url="{% url 'mentions:iso_mention_chart' %}">
+            {% include 'iso/dashboard/charts/mentions.html' %}
+          </div>
+          <div class="row blocks-two-columns">
+            <div class="col-md-6 col-xs-6">
+              <div id="industries_complaints">
+                {% include 'iso/dashboard/charts/industries_complaints.html' %}
+              </div>
+            </div>
+            <div class="col-md-6 col-xs-6">
+              <div id="response_rate" 
+                   data-url="{% url 'mentions:response_rate_iso' %}">
+                {% include 'iso/dashboard/charts/response_rate.html' with blank=1 %}
+              </div>
+            </div>
+          </div>
+          <div id="lowest_ranked" 
+               data-url="{% url 'mentions:lowest_ranked' %}">
+            {% include 'iso/dashboard/tables/lowest_ranked.html' %}
+          </div>
+          <div id="solved_unsolved" 
+               data-url="{% url 'mentions:solved' %}">
+            {% include 'iso/dashboard/charts/solved_unsolved.html' %}
+          </div>
+          <div id="big_five" 
+               data-url="{% url 'mentions:big_five' %}">
+            {% include 'iso/dashboard/charts/big_five.html' %}
+          </div>
+        </div>
+        <div class="block-right dashboard block-width-245">
+          <div id="complaints" 
+               data-url="{% url 'mentions:complaints' %}">
+            {% include 'iso/dashboard/complaints.html' %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  /* globals _, $, AJAX, APP, FORM, CHARTS, keywords */
+  'use strict';
+
+  /**
+   * merchant modal dialog controller, realizes creating new merchant using
+   * AJAX.
+   *
+   * @constructor
+   * @param {object} dialog a modal dialog element of the page
+   */
+  function MerchantModalController(dialog) {
+
+    var exports = {},
+      form = dialog.find('form'),
+      eventHandlers = [],
+      phoneMask = '999-999-9999',
+      zipCodeMask = '99999',
+      successTemplate = _.template('Merchant { name } successfully added');
+
+    /**
+     * click `hide` button handler, hide modal with Bootstrap method.
+     *
+     * @return {undefined}
+     */
+    exports.hide = function() {
+      // hide modal
+      dialog.modal('hide');
+    };
+
+    /**
+     * clean form fields and errors.
+     *
+     * @returns {undefined}
+     */
+    function _clearForm() {
+      // clear selected value for Industry
+      $('.chosen-select').val('').trigger('chosen:updated');
+      // hide opened multiple fields
+      form.find('.clear-value').parent().addClass('hidden');
+      // clean errors
+      FORM.clearForm(form);
+    }
+
+    /**
+     * check for existance category in search keywords
+     *
+     * @param {string} code a code of a keyword dict.
+     * @returns {boolean} `true` or `false`
+     */
+    function _isCategoryExists(code) {
+      return keywords.filter(function(keyword) {
+        return keyword.code === code;
+      })[0];
+    }
+
+    /**
+     * insert data in search's data source. Uses for autocomplete search
+     * with actually data without page reload.
+     *
+     * @param {object} data - a responsed JSON with data
+     * @returns {undefined}
+     */
+    function _addInSearch(data) {
+      keywords.push({
+        'label': data.merchant.value,
+        'value': data.merchant.value,
+        'type': 'merchant'
+      });
+      if (data.merchant.category &&
+            !_isCategoryExists(data.merchant.category.code)) {
+        keywords.push({
+          'label': data.merchant.category.code + ' - ' +
+                   data.merchant.category.value,
+          'value': data.merchant.category.value,
+          'code': data.merchant.category.code,
+          'type': 'category'
+        });
+      }
+    }
+
+    /**
+     * click `create` button handler
+     *
+     * @return {undefined}
+     */
+    function _clickCreate() {
+      // collect search settings
+      FORM.collectSearchSettings(form);
+
+      if (form.valid()) {
+        var merchant = form.formParams();
+        // prepare checkboxes for arrayfield
+        merchant.sources = _.join(merchant.sources, ',');
+        // lock button
+        form.find('button[type=submit]').attr('disabled', 'disabled');
+        // make request and ger response
+        AJAX.
+        createMerchant(merchant)
+          .done(function(data) {
+            APP.msg.success(successTemplate({name: data.merchant.value}));
+            // add merchant in search
+            _addInSearch(data);
+            // hide dialog
+            exports.hide();
+          })
+          .fail(function(data) {
+            APP.msg.error('Form has errors');
+            // inserting errors into form
+            FORM.insertErrors(form, data);
+          })
+          .always(function() {
+            // unlock button
+            form.find('button[type=submit]').removeAttr('disabled');
+          });
+      }
+    }
+
+    /**
+     * click Close button handler
+     *
+     * @return {undefined}
+     */
+    function _clickClose() {
+      exports.hide();
+    }
+
+    /**
+     * add field
+     *
+     * @param {object} element - an element that has been clicked
+     * @return {undefined}
+     */
+    function _clickAddField(element) {
+      $(element).next().find('.hidden:first')
+                       .removeClass('hidden');
+    }
+
+    /**
+     * hide field
+     *
+     * @param {object} element - an element that has been clicked
+     * @return {undefined}
+     */
+    function _clickRemoveField(element) {
+      $(element).parent().addClass('hidden')
+                         .find('input')
+                         .val('');
+    }
+
+    // private event handlers
+    eventHandlers = {
+      create: _clickCreate,
+      close: _clickClose,
+      addField: _clickAddField,
+      removeField: _clickRemoveField
+    };
+
+    /**
+     * init the class
+     *
+     * @return {undefined}
+     */
+    function init() {
+      // add checkboxes for strict search control
+      FORM.addCheckboxes(form);
+      // init category autocomplete
+      $('.chosen-select').chosen({search_contains: true});
+      // add mask for fields
+      $('.phone-masked-input input').mask(phoneMask);
+      $('#id_zip_code').mask(zipCodeMask);
+      $('#id_location_3').mask(zipCodeMask);
+      // bind events
+      dialog.find('.click-handler').on('click', function() {
+        var handler = $(this).data('handler');
+        eventHandlers[handler](this);
+      });
+      dialog.on('hidden.bs.modal', function() {
+        _clearForm();
+      });
+    }
+
+    init();
+    return exports;
+  }
+
+  /**
+   * controller for chart of ISO`s industries complaints.
+   *
+   * @constructor
+   * @param {object} container - jQuery instance of container that contains
+   *                             a canvas for the chart.
+   */
+  function IndustriesComplaintsChartController(container) {
+    var exports = {};
+
+    exports.update = function() {
+      var params = {
+        date: APP.getFilterParams().date,
+        period: APP.getFilterParams().period
+      };
+
+      APP.spinner.show(container.find('.waitable'));
+
+      AJAX.
+      getDataForIndustriesComplaintsChart(params)
+        .done(function(response) {
+          // hide spinner
+          APP.spinner.hide(container.find('.waitable'));
+          // build a chart with a response
+          CHARTS.buildIndustriesComplaintsChart(container, response.labels,
+                                                response.datasets);
+        });
+    };
+
+    /**
+     * get data from server and build the chart.
+     *
+     * @return {undefined}
+     */
+    function init() {
+      exports.update();
+    }
+
+    init();
+    return exports;
+  }
+
+  /**
+   * lowest ranked merchants list controller
+   *
+   * @constructor
+   * @param {object} container - container with merchant list and controls
+   */
+  function LowestRankedMerchantsListController(container) {
+    var exports = {};
+
+    /**
+     * callback implementation for jquery .html() with .promise(). Adds
+     * sparkline chart for each item of list.
+     *
+     * @returns {undefined}
+     */
+    function _callback() {
+      _.each(container.find('.table-body tr > .sparkline'), function(element) {
+        var container = $(element),
+          data = container.data('chart-data');
+
+        CHARTS.buildSparklineChart(container, data);
+      });
+    }
+
+    /**
+     * toggle spinner for the container
+     *
+     * @param {number} pageNumber - page number for pagination. Default is 1.
+     * @returns {undefined}
+     */
+    exports.update = function(pageNumber) {
+      var params = {
+        date: APP.getFilterParams().date,
+        period: APP.getFilterParams().period,
+        page: pageNumber || 1
+      };
+
+      APP.spinner.show(container.find('.waitable'));
+
+      AJAX.
+      getLowestRankedMerchants(params)
+        .done(function(data) {
+          // add callback that bind events for the responsed data
+          container.html(data).promise().done(function() {
+            _callback();
+          });
+        })
+        .always(function() {
+          APP.spinner.hide(container.find('.waitable'));
+        });
+    };
+
+    /**
+     * init the class
+     *
+     * @return {undefined}
+     */
+    function init() {
+      // load initial list of 5 merchants
+      exports.update();
+      // pagination
+      container.on('click', '.lrm_page', function() {
+        exports.update($(this).attr('id'));
+        return false;
+      });
+    }
+
+    init();
+    return exports;
+  }
+
+  /**
+   * controller for Perfomance Tracking chart
+   *
+   * @constructor
+   * @param {object} container - container with merchant list and controls
+   */
+  function PerfomanceTrackingChartController(container) {
+    var exports = {};
+
+    /**
+     * set/update data of Awerage Rating widget
+     *
+     * @param {object} data - data for widget
+     * @returns {undefined}
+     */
+    function _updateAverageRating(data) {
+      var industryScore = data.avg_industry,
+        industryText = data.industry;
+
+      if (!data.has_industry) {
+        industryScore = '-';
+        industryText = 'No industry';
+      }
+
+      $('#merchant_score').html(data.avg_merchant);
+      $('#industry_score').html(industryScore);
+      $('#merchant').html(TOOLS.truncatechars(data.merchant));
+      $('#industry').html(TOOLS.truncatechars(industryText));
+    }
+
+    /**
+     * toggle spinner for the container
+     *
+     * @returns {undefined}
+     */
+    exports.update = function() {
+      var params = APP.getFilterParams();
+
+      APP.spinner.show(container.find('.waitable'));
+      APP.spinner.show($('#average_rating').find('.waitable'));
+
+      AJAX.
+      getDataForPerfomanceTrackingChart(params)
+        .done(function(data) {
+          // set chart data
+          CHARTS.buildPerformanceTrackerChart(data.scores, data.x_legend);
+          _updateAverageRating(data);
+        })
+        .always(function() {
+          APP.spinner.hide(container.find('.waitable'));
+          APP.spinner.hide($('#average_rating').find('.waitable'));
+        });
+    };
+
+    /**
+     * init the class
+     *
+     * @return {undefined}
+     */
+    function init() {
+      exports.update();
+    }
+
+    init();
+    return exports;
+  }
+
+  /**
+   * controller for Mentions chart
+   *
+   * @constructor
+   * @param {object} container - container with merchant list and controls
+   */
+  function MentionsChartController(container) {
+    var exports = {};
+
+    /**
+     * get data and build the chart
+     *
+     * @returns {undefined}
+     */
+    exports.update = function() {
+      var params = APP.getFilterParams();
+
+      APP.spinner.show(container.find('.waitable'));
+
+      AJAX.
+      getDataForMentionsChart(params)
+        .done(function(data) {
+          // set chart data
+          CHARTS.buildMentionsChart(data.negative, data.positive,
+                                    data.neutral, data.legend);
+        })
+        .always(function() {
+          APP.spinner.hide(container.find('.waitable'));
+        });
+    };
+
+    /**
+     * init the class
+     *
+     * @return {undefined}
+     */
+    function init() {
+      exports.update();
+    }
+
+    init();
+    return exports;
+  }
+
+  /**
+   * controller for Complaints List
+   *
+   * @constructor
+   * @param {object} container - container with merchant list and controls
+   */
+  function ComplaintsListController(container) {
+    var exports = {};
+
+    /**
+     * toggle spinner for the container
+     *
+     * @returns {undefined}
+     */
+    exports.update = function() {
+      var params = APP.getFilterParams();
+
+      APP.spinner.show(container.find('.waitable'));
+
+      AJAX.
+      getComplaintsForISO(params)
+        .done(function(data) {
+          container.html(data);
+        })
+        .always(function() {
+          APP.spinner.hide(container.find('.waitable'));
+        });
+    };
+
+    /**
+     * init the class
+     *
+     * @return {undefined}
+     */
+    function init() {
+      exports.update();
+      // event for adding keyword from complaints list is filter
+      container.on('click', '.click-handler', function() {
+        // set keyword in filter
+        $('#merchant_search').val($(this).text());
+        // update widgets
+        EVENTS.publish('update', 'search');
+      });
+    }
+
+    init();
+    return exports;
+  }
+
+  /**
+   * controller for Response Rate widget
+   *
+   * @constructor
+   * @param {object} container - place for the widget, contains `canvas`
+   */
+  function ResponseRateChartController(container) {
+    var exports = {};
+
+    /**
+     * toggle spinner for the container
+     *
+     * @returns {undefined}
+     */
+    exports.update = function() {
+      var params = APP.getFilterParams(),
+        chart = null;
+
+      APP.spinner.show(container.find('.waitable'));
+
+      AJAX.
+      getDataForResponseRateChart(params)
+        .done(function(data) {
+          container.html(data);
+          chart = container.find('.chart');
+
+          CHARTS.buildResponseRateChart(container, chart.data('solved'),
+                                        chart.data('unsolved'));
+        })
+        .always(function() {
+          APP.spinner.hide(container.find('.waitable'));
+        });
+    };
+
+    /**
+     * init the class
+     *
+     * @return {undefined}
+     */
+    function init() {
+      exports.update();
+    }
+
+    init();
+    return exports;
+  }
+
+  /**
+   * controller for Solved progress widget
+   *
+   * @constructor
+   * @param {object} container - place for the widget, contains `canvas`
+   */
+  function SolvedUnsolvedWidgetController(container) {
+    var exports = {};
+
+    /**
+     * toggle spinner for the container
+     *
+     * @returns {undefined}
+     */
+    exports.update = function() {
+      var params = APP.getFilterParams();
+
+      APP.spinner.show(container.find('.waitable'));
+
+      AJAX.
+      getDataForSolvedUnsolvedWidget(params)
+        .done(function(data) {
+          container.html(data);
+        })
+        .always(function() {
+          APP.spinner.hide(container.find('.waitable'));
+        });
+    };
+
+    /**
+     * init the class
+     *
+     * @return {undefined}
+     */
+    function init() {
+      exports.update();
+    }
+
+    init();
+    return exports;
+  }
+
+  /**
+   * controller for The Big Five widget
+   *
+   * @constructor
+   * @param {object} container - place for the widget, contains `canvas`
+   */
+  function BigFiveWidgetController(container) {
+    var exports = {};
+
+    /**
+     * toggle spinner for the container
+     *
+     * @returns {undefined}
+     */
+    exports.update = function() {
+      var params = APP.getFilterParams();
+
+      APP.spinner.show(container.find('.waitable'));
+
+      AJAX.
+      getDataForBigFiveWidget(params)
+        .done(function(data) {
+          container.html(data);
+        })
+        .always(function() {
+          APP.spinner.hide(container.find('.waitable'));
+        });
+    };
+
+    /**
+     * init the class
+     *
+     * @return {undefined}
+     */
+    function init() {
+      exports.update();
+    }
+
+    init();
+    return exports;
+  }
+
+  /**
+   * filter controller.
+   *
+   * Filter data by search keywords, date period and interval.
+   *
+   * @constructor
+   * @param {object} container - jQuery object that contains filter controls.
+   */
+  function FilterController(container) {
+    var eventHandlers = {};
+
+    /**
+     * setting up autocomplete and apply filter.
+     *
+     * @returns {undefined}
+     */
+    function _setAutocomplete() {
+      var THROTTLE_DELAY = 100,
+        element = $('#merchant_search');
+
+      // bind event to element
+      element.customAutoComplete({
+        source: _.sortBy(keywords, 'label'),
+        delay: 0,
+        minLength: 0,
+        select: function() {
+          EVENTS.publish('update', 'search');
+        },
+        search: $.throttle(THROTTLE_DELAY, function() {
+          if (!element.val().length) {
+            EVENTS.publish('update', 'search');
+            element.customAutoComplete('close');
+            return false;
+          }
+          return true;
+        })
+      });
+    }
+
+    /**
+     * click period toggle handler
+     *
+     * @param {object} element - jQuery object
+     * @returns {undefined}
+     */
+    function _clickPeriod(element) {
+      $('#toggle_period').find('.active')
+                         .removeClass('active');
+      element.addClass('active');
+      setRangeDisplay(function() {
+        EVENTS.publish('update', 'period');
+      });
+    }
+
+    /**
+     * click date toggle handler
+     *
+     * @param {object} element - jQuery object
+     * @returns {undefined}
+     */
+    function _clickDate(element) {
+      $('#current_date').text(element.attr('data-date'));
+      setRangeDisplay(function() {
+        EVENTS.publish('update', 'date');
+      });
+    }
+
+    eventHandlers = {
+      'period': _clickPeriod,
+      'date': _clickDate
+    };
+
+    /**
+     * init the controller
+     *
+     * @return {undefined}
+     */
+    function init() {
+      _setAutocomplete();
+      setRangeDisplay();
+      container.on('click', '.click-handler', function() {
+        eventHandlers[$(this).data('handler')]($(this));
+      });
+    }
+
+    init();
+  }
+
+  /**
+   * the page controller. Base controller for the dashboard.
+   *
+   * @constructor
+   */
+  function PageController() {
+    var DEBOUNCE_DELAY = 500,
+      exports = {},
+      modals = [],
+      objects = [],
+      widgets = [],
+      debouncedUpdateWidgets = null;
+
+    /**
+     * update widgets that stored in the page controlle (controller.widgets)
+     *
+     * @param {string} event - event's name, for this will be updated widgets
+     * @returns {undefined}
+     */
+    function updateWidgets(event) {
+      // get objects that have this event
+      objects = widgets.filter(function(e) {
+        return e.actions.indexOf(event) >= 0;
+      });
+      // update objects with this event
+      _.each(objects, function(item) {
+        item.obj.update();
+      });
+    }
+
+    // debounced function for update charts after filter actions
+    debouncedUpdateWidgets = _.debounce(updateWidgets, DEBOUNCE_DELAY);
+
+    /**
+     * init the controller
+     *
+     * @return {undefined}
+     */
+    function init() {
+      // set spinners (removed after refactoring)
+      // setWaiting();
+
+      modals.push(
+        new MerchantModalController($('#createMerchantModal'))
+      );
+      // adds widgets in dict for update when filters change
+      // actions list contains events, on which the objects have to updates
+      widgets.push({
+        obj: new IndustriesComplaintsChartController(
+          $('#industries_complaints')),
+        actions: ['period', 'date']
+      }, {
+        obj: new LowestRankedMerchantsListController($('#lowest_ranked')),
+        actions: ['period', 'date']
+      }, {
+        obj: new PerfomanceTrackingChartController($('#perfomance_tracker')),
+        actions: ['period', 'date', 'search']
+      }, {
+        obj: new ComplaintsListController($('#complaints')),
+        actions: ['period', 'date', 'search']
+      }, {
+        obj: new MentionsChartController($('#mentions_chart')),
+        actions: ['period', 'date', 'search']
+      }, {
+        obj: new ResponseRateChartController($('#response_rate')),
+        actions: ['period', 'date', 'search']
+      }, {
+        obj: new SolvedUnsolvedWidgetController($('#solved_unsolved')),
+        actions: ['period', 'date', 'search']
+      }, {
+        obj: new BigFiveWidgetController($('#big_five')),
+        actions: ['period', 'date', 'search']
+      });
+      // init main filters controller, that calls `update` methods for all
+      // widgets list items.
+      exports.filterController = new FilterController($('#filter'));
+      // register a subscribe
+      EVENTS.subscribe('update', function(event) {
+        debouncedUpdateWidgets(event);
+      });
+    }
+
+    init();
+  }
+</script>
+{% endblock %}
+
+{% block javascript %}
+{{ block.super }}
+{% include 'iso/dashboard/search_keywords.script' %}
+<script>
+  // init the page controller
+  this.controller = new PageController();
+</script>
+{% endblock %}

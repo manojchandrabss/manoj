@@ -1,0 +1,55 @@
+<div class="sidebar">
+  <div class="block-element">
+    <div class="nav-title">SCORE</div>
+  </div>
+  <div class="block-element center">
+    <div id="average_rating">
+      <div class="vs clearfix waitable waiting dark">
+        <div class="title" 
+             id="industry_average" 
+             data-url="{% url 'mentions:score' %}">Average Rating</div>
+          <div class="col-value left">
+            <div class="value" 
+                 id="merchant_score"></div>
+            <div class="caption" 
+                 id="merchant" 
+                 style="margin: 10px;"></div>
+          </div>
+          <div class="col-value">
+            <div class="value" 
+                 id="industry_score"></div>
+            <div class="caption" 
+                 id="industry" 
+                 style="margin: 10px;"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  <div class="block-element">
+    <div class="nav-title">WEBPR QUICK TOOLS</div>
+  </div>
+  <div class="block-element">
+    <ul class="nav nav-sidebar">
+      <li>
+        <a href="{% url 'mentions:trackers' %}">
+          <span class="icon icon-lists"></span>TRACKER PAGE
+        </a>
+      </li>
+      <li>
+        <a href="{% url 'mentions:statistics' %}">
+          <span class="icon icon-graph"></span>REPORTING PAGE
+        </a>
+      </li>
+      <li>
+        <a href="javascript:void(0);" 
+           data-toggle="modal" 
+           data-target="#createMerchantModal">
+           <i class="icon icon-add"></i>ADD MERCHANT
+        </a>
+      </li>
+    </ul>
+  </div>
+  <div id="add_merchant_place">
+    {% include 'iso/dashboard/add_merchant.html' %}
+  </div>
+</div>

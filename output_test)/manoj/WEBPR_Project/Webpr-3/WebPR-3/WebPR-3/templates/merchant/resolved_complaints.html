@@ -1,0 +1,33 @@
+<div class="panel panel-blue">
+  <div class="panel-heading">Response Rate</div>
+  <div class="panel-body waitable waiting">
+    <ul class="list-tab">
+      <li class="period-toggle click-handler active" 
+          data-handler="period" 
+          data-period="week" 
+          onclick="return false;">WEEK</li>
+      <li class="period-toggle click-handler" 
+          data-handler="period" 
+          data-period="month" 
+          onclick="return false;">MONTH</li>
+    </ul>
+    <div class="chart" 
+         data-solved="{{ solved }}" 
+         data-unsolved="{{ unsolved }}">
+      <div class="percent">{{ rate|floatformat }}<sup>%</sup></div>
+      <canvas id="responseRate" 
+              width="170" 
+              height="80"></canvas>
+    </div>
+    <div class="text-center">
+      <p>
+      {% if change %}
+        <i class="fa triangle fa-caret-up mr5 triangle-green"></i>
+      {% else %}
+        <i class="fa triangle fa-caret-down mr5 triangle-red"></i>
+      {% endif %}
+      {{ solved }} issues resolved
+      </p>
+    </div>
+  </div>
+</div>

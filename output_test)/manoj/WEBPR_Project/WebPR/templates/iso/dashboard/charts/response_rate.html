@@ -1,0 +1,22 @@
+<div class="panel panel-gradient">
+  <div class="panel-heading">Response Rate</div>
+  <div class="panel-body waitable waiting">
+    <div class="chart" 
+         data-solved="{{ solved }}" 
+         data-unsolved="{{ unsolved }}">
+      <div class="percent">{{ rate|floatformat }}<sup>%</sup></div>
+      <canvas width="190" 
+              height="55"></canvas>
+    </div>
+    <div class="text-center">
+      <p>
+        {% if change %}
+        <i class="fa fa-caret-up mr5 triangle triangle-green"></i>
+        {% else %}
+        <i class="fa fa-caret-down mr5 triangle triangle-red"></i>
+        {% endif %}
+        {{ solved }} issues resolved
+      </p>
+    </div>
+  </div>
+</div>

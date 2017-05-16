@@ -1,0 +1,10 @@
+backend:
+  build: .
+  ports:
+    - "80:80"
+  environment:
+    - APP_ENV=development
+  external_links:
+    - postgis:postgres
+    - redis
+  command: /home/www/start.sh

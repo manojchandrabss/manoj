@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% load account %}
+
+{% block title %}Login{% endblock %}
+
+{% block body %}
+<body class="login">
+  <div class="block-login">
+    <form class="form-signin" 
+          method="post">
+      {% csrf_token %}
+      <div class="logo">
+        <img src="{% static 'img/logo-login.png' %}" 
+             alt="Logo">
+      </div>
+      {{ form.non_field_errors }}
+
+      <div class="form-group sm{% if form.login.errors %} has-error{% endif %}">
+        {{ form.login.errors }}
+        <input id="{{ form.login.auto_id }}" 
+               name="{{ form.login.html_name }}" 
+               type="text" 
+               placeholder="Email" 
+               autofocus="" 
+               class="form-control">
+      </div>
+
+      <div class="form-group sm mb5 {% if form.login.errors %} has-error{% endif %}">
+        {{ form.password.errors }}
+        <input id="{{ form.password.auto_id }}" 
+               name="{{ form.password.html_name }}" 
+               type="password" 
+               placeholder="Password" 
+               class="form-control">
+      </div>
+
+      <div class="text-right mb15">
+        <a href="{% url 'account_reset_password' %}" 
+           class="btn btn-link">Forgot Password?</a>
+      </div>
+      
+      {% if redirect_field_value %}
+      <input type="hidden" 
+             name="{{ redirect_field_name }}" 
+             value="{{ redirect_field_value }}" />
+      {% endif %}
+  
+      <button type="submit" 
+              class="btn btn-lg btn-blue btn-block">Login</button>
+    </form>
+  </div>
+</body>
+{% endblock %}

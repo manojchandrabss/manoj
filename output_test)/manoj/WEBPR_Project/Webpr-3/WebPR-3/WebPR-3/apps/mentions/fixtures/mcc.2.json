@@ -1,0 +1,2000 @@
+[
+  {
+    "codes": [
+      "0742"
+    ],
+    "name": "Veterinary Services",
+    "reportable": 1
+  },
+  {
+    "codes": [
+      "0763"
+    ],
+    "name": "Agricultural Cooperative",
+    "reportable": 1
+  },
+  {
+    "codes": [
+      "0780"
+    ],
+    "name": "Landscaping Services",
+    "reportable": 1
+  },
+  {
+    "codes": [
+      "1520"
+    ],
+    "name": "General Contractors",
+    "reportable": 1
+  },
+  {
+    "codes": [
+      "1711"
+    ],
+    "name": "Heating, Plumbing, A/C",
+    "reportable": 1
+  },
+  {
+    "codes": [
+      "1731"
+    ],
+    "name": "Electrical Contractors",
+    "reportable": 1
+  },
+  {
+    "codes": [
+      "1740"
+    ],
+    "name": "Masonry, Stonework, and Plaster",
+    "reportable": 1
+  },
+  {
+    "codes": [
+      "1750"
+    ],
+    "name": "Carpentry Contractors",
+    "reportable": 1
+  },
+  {
+    "codes": [
+      "1761"
+    ],
+    "name": "Roofing/Siding, Sheet Metal",
+    "reportable": 1
+  },
+  {
+    "codes": [
+      "1771"
+    ],
+    "name": "Concrete Work Contractors",
+    "reportable": 1
+  },
+  {
+    "codes": [
+      "1799"
+    ],
+    "name": "Special Trade Contractors",
+    "reportable": 1
+  },
+  {
+    "codes": [
+      "2741"
+    ],
+    "name": "Miscellaneous Publishing and Printing",
+    "reportable": 1
+  },
+  {
+    "codes": [
+      "2791"
+    ],
+    "name": "Typesetting, Plate Making, and Related Services",
+    "reportable": 1
+  },
+  {
+    "codes": [
+      "2842"
+    ],
+    "name": "Specialty Cleaning",
+    "reportable": 1
+  },
+  {
+    "codes": [
+      "3000",
+      "3299"
+    ],
+    "name": "Airlines",
+    "reportable": 1
+  },
+  {
+    "codes": [
+      "3351",
+      "3441"
+    ],
+    "name": "Car Rental",
+    "reportable": 1
+  },
+  {
+    "codes": [
+      "3501",
+      "3790"
+    ],
+    "name": "Hotels/Motels/Inns/Resorts",
+    "reportable": 1
+  },
+  {
+    "codes": [
+      "4011"
+    ],
+    "name": "Railroads",
+    "reportable": 0
+  },
+  {
+    "codes": [
+      "4111"
+    ],
+    "name": "Commuter Transport, Ferries",
+    "reportable": 1
+  },
+  {
+    "codes": [
+      "4112"
+    ],
+    "name": "Passenger Railways",
+    "reportable": 1
+  },
+  {
+    "codes": [
+      "4119"
+    ],
+    "name": "Ambulance Services",
+    "reportable": 1
+  },
+  {
+    "codes": [
+      "4121"
+    ],
+    "name": "Taxicabs/Limousines",
+    "reportable": 1
+  },
+  {
+    "codes": [
+      "4131"
+    ],
+    "name": "Bus Lines",
+    "reportable": 1
+  },
+  {
+    "codes": [
+      "4214"
+    ],
+    "name": "Motor Freight Carriers and Trucking - Local and Long Distance, Moving and Storage Companies, and Local Delivery Services",
+    "reportable": 0
+  },
+  {
+    "codes": [
+      "4215"
+    ],
+    "name": "Courier Services ",
+    "reportable": 1
+  },
+  {
+    "codes": [
+      "4225"
+    ],
+    "name": "Public Warehousing and Storage - Farm Products, Refrigerated Goods, Household Goods, and Storage",
+    "reportable": 0
+  },
+  {
+    "codes": [
+      "4411"
+    ],
+    "name": "Cruise Lines",
+    "reportable": 1
+  },
+  {
+    "codes": [
+      "4457"
+    ],
+    "name": "Boat Rentals and Leases",
+    "reportable": 1
+  },
+  {
+    "codes": [
+      "4468"
+    ],
+    "name": "Marinas, Service and Supplies",
+    "reportable": 1
+  },
+  {
+    "codes": [
+      "4511"
+    ],
+    "name": "Airlines, Air Carriers",
+    "reportable": 1
+  },
+  {
+    "codes": [
+      "4582"
+    ],
+    "name": "Airports, Flying Fields",
+    "reportable": 1
+  },
+  {
+    "codes": [
+      "4722"
+    ],
+    "name": "Travel Agencies, Tour Operators",
+    "reportable": 1
+  },
+  {
+    "codes": [
+      "4723"
+    ],
+    "name": "TUI Travel - Germany",
+    "reportable": 1
+  },
+  {
+    "codes": [
+      "4784"
+    ],
+    "name": "Tolls/Bridge Fees",
+    "reportable": 0
+  },
+  {
+    "codes": [
+      "4789"
+    ],
+    "name": "Transportation Services (Not Elsewhere Classified)",
+    "reportable": 1
+  },
+  {
+    "codes": [
+      "4812"
+    ],
+    "name": "Telecommunication Equipment and Telephone Sales",
+    "reportable": 0
+  },
+  {
+    "codes": [
+      "4814"
+    ],
+    "name": "Telecommunication Services",
+    "reportable": 0
+  },
+  {
+    "codes": [
+      "4816"
+    ],
+    "name": "Computer Network Services",
+    "reportable": 0
+  },
+  {
+    "codes": [
+      "4821"
+    ],
+    "name": "Telegraph Services",
+    "reportable": 0
+  },
+  {
+    "codes": [
+      "4829"
+    ],
+    "name": "Wires, Money Orders",
+    "reportable": 0
+  },
+  {
+    "codes": [
+      "4899"
+    ],
+    "name": "Cable, Satellite, and Other Pay Television and Radio",
+    "reportable": 0
+  },
+  {
+    "codes": [
+      "4900"
+    ],
+    "name": "Utilities ",
+    "reportable": 0
+  },
+  {
+    "codes": [
+      "5013"
+    ],
+    "name": "Motor Vehicle Supplies and New Parts",
+    "reportable": 0
+  },
+  {
+    "codes": [
+      "5021"
+    ],
+    "name": "Office and Commercial Furniture",
+    "reportable": 0
+  },
+  {
+    "codes": [
+      "5039"
+    ],
+    "name": "Construction Materials (Not Elsewhere Classified)",
+    "reportable": 0
+  },
+  {
+    "codes": [
+      "5044"
+    ],
+    "name": "Photographic, Photocopy, Microfilm Equipment, and Supplies",
+    "reportable": 0
+  },
+  {
+    "codes": [
+      "5045"
+    ],
+    "name": "Computers, Peripherals, and Software",
+    "reportable": 0
+  },
+  {
+    "codes": [
+      "5046"
+    ],
+    "name": "Commercial Equipment (Not Elsewhere Classified)",
+    "reportable": 0
+  },
+  {
+    "codes": [
+      "5047"
+    ],
+    "name": "Medical, Dental, Ophthalmic, and Hospital Equipment and Supplies",
+    "reportable": 0
+  },
+  {
+    "codes": [
+      "5051"
+    ],
+    "name": "Metal Service Centers",
+    "reportable": 0
+  },
+  {
+    "codes": [
+      "5065"
+    ],
+    "name": "Electrical Parts and Equipment",
+    "reportable": 0
+  },
+  {
+    "codes": [
+      "5072"
+    ],
+    "name": "Hardware, Equipment, and Supplies",
+    "reportable": 0
+  },
+  {
+    "codes": [
+      "5074"
+    ],
+    "name": "Plumbing, Heating Equipment, and Supplies",
+    "reportable": 0
+  },
+  {
+    "codes": [
+      "5085"
+    ],
+    "name": "Industrial Supplies (Not Elsewhere Classified)",
+    "reportable": 0
+  },
+  {
+    "codes": [
+      "5094"
+    ],
+    "name": "Precious Stones and Metals, Watches and Jewelry",
+    "reportable": 0
+  },
+  {
+    "codes": [
+      "5099"
+    ],
+    "name": "Durable Goods (Not Elsewhere Classified)",
+    "reportable": 0
+  },
+  {
+    "codes": [
+      "5111"
+    ],
+    "name": "Stationary, Office Supplies, Printing and Writing Paper",
+    "reportable": 0
+  },
+  {
+    "codes": [
+      "5122"
+    ],
+    "name": "Drugs, Drug Proprietaries, and Druggist Sundries",
+    "reportable": 0
+  },
+  {
+    "codes": [
+      "5131"
+    ],
+    "name": "Piece Goods, Notions, and Other Dry Goods",
+    "reportable": 0
+  },
+  {
+    "codes": [
+      "5137"
+    ],
+    "name": "Uniforms, Commercial Clothing",
+    "reportable": 0
+  },
+  {
+    "codes": [
+      "5139"
+    ],
+    "name": "Commercial Footwear",
+    "reportable": 0
+  },
+  {
+    "codes": [
+      "5169"
+    ],
+    "name": "Chemicals and Allied Products (Not Elsewhere Classified)",
+    "reportable": 0
+  },
+  {
+    "codes": [
+      "5172"
+    ],
+    "name": "Petroleum and Petroleum Products",
+    "reportable": 0
+  },
+  {
+    "codes": [
+      "5192"
+    ],
+    "name": "Books, Periodicals, and Newspapers",
+    "reportable": 0
+  },
+  {
+    "codes": [
+      "5193"
+    ],
+    "name": "Florists Supplies, Nursery Stock, and Flowers",
+    "reportable": 0
+  },
+  {
+    "codes": [
+      "5198"
+    ],
+    "name": "Paints, Varnishes, and Supplies",
+    "reportable": 0
+  },
+  {
+    "codes": [
+      "5199"
+    ],
+    "name": "Nondurable Goods (Not Elsewhere Classified)",
+    "reportable": 0
+  },
+  {
+    "codes": [
+      "5200"
+    ],
+    "name": "Home Supply Warehouse Stores",
+    "reportable": 0
+  },
+  {
+    "codes": [
+      "5211"
+    ],
+    "name": "Lumber, Building Materials Stores",
+    "reportable": 0
+  },
+  {
+    "codes": [
+      "5231"
+    ],
+    "name": "Glass, Paint, and Wallpaper Stores",
+    "reportable": 0
+  },
+  {
+    "codes": [
+      "5251"
+    ],
+    "name": "Hardware Stores",
+    "reportable": 0
+  },
+  {
+    "codes": [
+      "5261"
+    ],
+    "name": "Nurseries, Lawn and Garden Supply Stores",
+    "reportable": 0
+  },
+  {
+    "codes": [
+      "5271"
+    ],
+    "name": "Mobile Home Dealers",
+    "reportable": 0
+  },
+  {
+    "codes": [
+      "5300"
+    ],
+    "name": "Wholesale Clubs",
+    "reportable": 0
+  },
+  {
+    "codes": [
+      "5309"
+    ],
+    "name": "Duty Free Stores",
+    "reportable": 0
+  },
+  {
+    "codes": [
+      "5310"
+    ],
+    "name": "Discount Stores",
+    "reportable": 0
+  },
+  {
+    "codes": [
+      "5311"
+    ],
+    "name": "Department Stores",
+    "reportable": 0
+  },
+  {
+    "codes": [
+      "5331"
+    ],
+    "name": "Variety Stores",
+    "reportable": 0
+  },
+  {
+    "codes": [
+      "5399"
+    ],
+    "name": "Miscellaneous General Merchandise",
+    "reportable": 0
+  },
+  {
+    "codes": [
+      "5411"
+    ],
+    "name": "Grocery Stores, Supermarkets",
+    "reportable": 0
+  },
+  {
+    "codes": [
+      "5422"
+    ],
+    "name": "Freezer and Locker Meat Provisioners",
+    "reportable": 0
+  },
+  {
+    "codes": [
+      "5441"
+    ],
+    "name": "Candy, Nut, and Confectionery Stores",
+    "reportable": 0
+  },
+  {
+    "codes": [
+      "5451"
+    ],
+    "name": "Dairy Products Stores",
+    "reportable": 0
+  },
+  {
+    "codes": [
+      "5462"
+    ],
+    "name": "Bakeries",
+    "reportable": 0
+  },
+  {
+    "codes": [
+      "5499"
+    ],
+    "name": "Miscellaneous Food Stores - Convenience Stores and Specialty Markets",
+    "reportable": 0
+  },
+  {
+    "codes": [
+      "5511"
+    ],
+    "name": "Car and Truck Dealers (New & Used) Sales, Service, Repairs Parts and Leasing",
+    "reportable": 0
+  },
+  {
+    "codes": [
+      "5521"
+    ],
+    "name": "Car and Truck Dealers (Used Only) Sales, Service, Repairs Parts and Leasing",
+    "reportable": 0
+  },
+  {
+    "codes": [
+      "5531"
+    ],
+    "name": "Auto and Home Supply Stores",
+    "reportable": 0
+  },
+  {
+    "codes": [
+      "5532"
+    ],
+    "name": "Automotive Tire Stores",
+    "reportable": 0
+  },
+  {
+    "codes": [
+      "5533"
+    ],
+    "name": "Automotive Parts and Accessories Stores",
+    "reportable": 0
+  },
+  {
+    "codes": [
+      "5541"
+    ],
+    "name": "Service Stations ",
+    "reportable": 0
+  },
+  {
+    "codes": [
+      "5542"
+    ],
+    "name": "Automated Fuel Dispensers",
+    "reportable": 0
+  },
+  {
+    "codes": [
+      "5551"
+    ],
+    "name": "Boat Dealers",
+    "reportable": 0
+  },
+  {
+    "codes": [
+      "5561"
+    ],
+    "name": "Motorcycle Shops, Dealers",
+    "reportable": 0
+  },
+  {
+    "codes": [
+      "5571"
+    ],
+    "name": "Motorcycle Shops and Dealers",
+    "reportable": 0
+  },
+  {
+    "codes": [
+      "5592"
+    ],
+    "name": "Motor Homes Dealers",
+    "reportable": 0
+  },
+  {
+    "codes": [
+      "5598"
+    ],
+    "name": "Snowmobile Dealers",
+    "reportable": 0
+  },
+  {
+    "codes": [
+      "5599"
+    ],
+    "name": "Miscellaneous Auto Dealers ",
+    "reportable": 0
+  },
+  {
+    "codes": [
+      "5611"
+    ],
+    "name": "Men\u2019s and Boy\u2019s Clothing and Accessories Stores",
+    "reportable": 0
+  },
+  {
+    "codes": [
+      "5621"
+    ],
+    "name": "Women\u2019s Ready-To-Wear Stores",
+    "reportable": 0
+  },
+  {
+    "codes": [
+      "5631"
+    ],
+    "name": "Women\u2019s Accessory and Specialty Shops",
+    "reportable": 0
+  },
+  {
+    "codes": [
+      "5641"
+    ],
+    "name": "Children\u2019s and Infant\u2019s Wear Stores",
+    "reportable": 0
+  },
+  {
+    "codes": [
+      "5651"
+    ],
+    "name": "Family Clothing Stores",
+    "reportable": 0
+  },
+  {
+    "codes": [
+      "5655"
+    ],
+    "name": "Sports and Riding Apparel Stores",
+    "reportable": 0
+  },
+  {
+    "codes": [
+      "5661"
+    ],
+    "name": "Shoe Stores",
+    "reportable": 0
+  },
+  {
+    "codes": [
+      "5681"
+    ],
+    "name": "Furriers and Fur Shops",
+    "reportable": 0
+  },
+  {
+    "codes": [
+      "5691"
+    ],
+    "name": "Men\u2019s, Women\u2019s Clothing Stores",
+    "reportable": 0
+  },
+  {
+    "codes": [
+      "5697"
+    ],
+    "name": "Tailors, Alterations",
+    "reportable": 1
+  },
+  {
+    "codes": [
+      "5698"
+    ],
+    "name": "Wig and Toupee Stores",
+    "reportable": 0
+  },
+  {
+    "codes": [
+      "5699"
+    ],
+    "name": "Miscellaneous Apparel and Accessory Shops",
+    "reportable": 0
+  },
+  {
+    "codes": [
+      "5712"
+    ],
+    "name": "Furniture, Home Furnishings, and Equipment Stores, Except Appliances",
+    "reportable": 0
+  },
+  {
+    "codes": [
+      "5713"
+    ],
+    "name": "Floor Covering Stores",
+    "reportable": 0
+  },
+  {
+    "codes": [
+      "5714"
+    ],
+    "name": "Drapery, Window Covering, and Upholstery Stores",
+    "reportable": 0
+  },
+  {
+    "codes": [
+      "5718"
+    ],
+    "name": "Fireplace, Fireplace Screens, and Accessories Stores",
+    "reportable": 0
+  },
+  {
+    "codes": [
+      "5719"
+    ],
+    "name": "Miscellaneous Home Furnishing Specialty Stores",
+    "reportable": 0
+  },
+  {
+    "codes": [
+      "5722"
+    ],
+    "name": "Household Appliance Stores",
+    "reportable": 0
+  },
+  {
+    "codes": [
+      "5732"
+    ],
+    "name": "Electronics Stores",
+    "reportable": 0
+  },
+  {
+    "codes": [
+      "5733"
+    ],
+    "name": "Music Stores-Musical Instruments, Pianos, and Sheet Music",
+    "reportable": 0
+  },
+  {
+    "codes": [
+      "5734"
+    ],
+    "name": "Computer Software Stores",
+    "reportable": 0
+  },
+  {
+    "codes": [
+      "5735"
+    ],
+    "name": "Record Stores",
+    "reportable": 0
+  },
+  {
+    "codes": [
+      "5811"
+    ],
+    "name": "Caterers",
+    "reportable": 1
+  },
+  {
+    "codes": [
+      "5812"
+    ],
+    "name": "Eating Places, Restaurants",
+    "reportable": 0
+  },
+  {
+    "codes": [
+      "5813"
+    ],
+    "name": "Drinking Places",
+    "reportable": 0
+  },
+  {
+    "codes": [
+      "5814"
+    ],
+    "name": "Fast Food Restaurants",
+    "reportable": 0
+  },
+  {
+    "codes": [
+      "5912"
+    ],
+    "name": "Drug Stores and Pharmacies",
+    "reportable": 0
+  },
+  {
+    "codes": [
+      "5921"
+    ],
+    "name": "Package Stores-Beer, Wine, and Liquor",
+    "reportable": 0
+  },
+  {
+    "codes": [
+      "5931"
+    ],
+    "name": "Used Merchandise and Secondhand Stores",
+    "reportable": 0
+  },
+  {
+    "codes": [
+      "5932"
+    ],
+    "name": "Antique Shops",
+    "reportable": 0
+  },
+  {
+    "codes": [
+      "5933"
+    ],
+    "name": "Pawn Shops",
+    "reportable": 0
+  },
+  {
+    "codes": [
+      "5935"
+    ],
+    "name": "Wrecking and Salvage Yards",
+    "reportable": 1
+  },
+  {
+    "codes": [
+      "5937"
+    ],
+    "name": "Antique Reproductions",
+    "reportable": 0
+  },
+  {
+    "codes": [
+      "5940"
+    ],
+    "name": "Bicycle Shops",
+    "reportable": 0
+  },
+  {
+    "codes": [
+      "5941"
+    ],
+    "name": "Sporting Goods Stores",
+    "reportable": 0
+  },
+  {
+    "codes": [
+      "5942"
+    ],
+    "name": "Book Stores",
+    "reportable": 0
+  },
+  {
+    "codes": [
+      "5943"
+    ],
+    "name": "Stationery Stores, Office, and School Supply Stores",
+    "reportable": 0
+  },
+  {
+    "codes": [
+      "5944"
+    ],
+    "name": "Jewelry Stores, Watches, Clocks, and Silverware Stores",
+    "reportable": 0
+  },
+  {
+    "codes": [
+      "5945"
+    ],
+    "name": "Hobby, Toy, and Game Shops",
+    "reportable": 0
+  },
+  {
+    "codes": [
+      "5946"
+    ],
+    "name": "Camera and Photographic Supply Stores",
+    "reportable": 0
+  },
+  {
+    "codes": [
+      "5947"
+    ],
+    "name": "Gift, Card, Novelty, and Souvenir Shops",
+    "reportable": 0
+  },
+  {
+    "codes": [
+      "5948"
+    ],
+    "name": "Luggage and Leather Goods Stores",
+    "reportable": 0
+  },
+  {
+    "codes": [
+      "5949"
+    ],
+    "name": "Sewing, Needlework, Fabric, and Piece Goods Stores",
+    "reportable": 0
+  },
+  {
+    "codes": [
+      "5950"
+    ],
+    "name": "Glassware, Crystal Stores",
+    "reportable": 0
+  },
+  {
+    "codes": [
+      "5960"
+    ],
+    "name": "Direct Marketing - Insurance Services",
+    "reportable": 1
+  },
+  {
+    "codes": [
+      "5962"
+    ],
+    "name": "Direct Marketing - Travel",
+    "reportable": 1
+  },
+  {
+    "codes": [
+      "5963"
+    ],
+    "name": "Door-To-Door Sales",
+    "reportable": 0
+  },
+  {
+    "codes": [
+      "5964"
+    ],
+    "name": "Direct Marketing - Catalog Merchant",
+    "reportable": 0
+  },
+  {
+    "codes": [
+      "5965"
+    ],
+    "name": "Direct Marketing - Combination Catalog and Retail Merchant",
+    "reportable": 0
+  },
+  {
+    "codes": [
+      "5966"
+    ],
+    "name": "Direct Marketing - Outbound Tele",
+    "reportable": 0
+  },
+  {
+    "codes": [
+      "5967"
+    ],
+    "name": "Direct Marketing - Inbound Tele",
+    "reportable": 0
+  },
+  {
+    "codes": [
+      "5968"
+    ],
+    "name": "Direct Marketing - Subscription",
+    "reportable": 0
+  },
+  {
+    "codes": [
+      "5969"
+    ],
+    "name": "Direct Marketing - Other ",
+    "reportable": 0
+  },
+  {
+    "codes": [
+      "5970"
+    ],
+    "name": "Artist\u2019s Supply and Craft Shops",
+    "reportable": 0
+  },
+  {
+    "codes": [
+      "5971"
+    ],
+    "name": "Art Dealers and Galleries",
+    "reportable": 0
+  },
+  {
+    "codes": [
+      "5972"
+    ],
+    "name": "Stamp and Coin Stores",
+    "reportable": 0
+  },
+  {
+    "codes": [
+      "5973"
+    ],
+    "name": "Religious Goods Stores",
+    "reportable": 0
+  },
+  {
+    "codes": [
+      "5975"
+    ],
+    "name": "Hearing Aids Sales and Supplies",
+    "reportable": 0
+  },
+  {
+    "codes": [
+      "5976"
+    ],
+    "name": "Orthopedic Goods - Prosthetic Devices",
+    "reportable": 0
+  },
+  {
+    "codes": [
+      "5977"
+    ],
+    "name": "Cosmetic Stores",
+    "reportable": 0
+  },
+  {
+    "codes": [
+      "5978"
+    ],
+    "name": "Typewriter Stores",
+    "reportable": 0
+  },
+  {
+    "codes": [
+      "5983"
+    ],
+    "name": "Fuel Dealers (Non Automotive)",
+    "reportable": 0
+  },
+  {
+    "codes": [
+      "5992"
+    ],
+    "name": "Florists",
+    "reportable": 0
+  },
+  {
+    "codes": [
+      "5993"
+    ],
+    "name": "Cigar Stores and Stands",
+    "reportable": 0
+  },
+  {
+    "codes": [
+      "5994"
+    ],
+    "name": "News Dealers and Newsstands",
+    "reportable": 0
+  },
+  {
+    "codes": [
+      "5995"
+    ],
+    "name": "Pet Shops, Pet Food, and Supplies",
+    "reportable": 0
+  },
+  {
+    "codes": [
+      "5996"
+    ],
+    "name": "Swimming Pools Sales",
+    "reportable": 0
+  },
+  {
+    "codes": [
+      "5997"
+    ],
+    "name": "Electric Razor Stores",
+    "reportable": 0
+  },
+  {
+    "codes": [
+      "5998"
+    ],
+    "name": "Tent and Awning Shops",
+    "reportable": 0
+  },
+  {
+    "codes": [
+      "5999"
+    ],
+    "name": "Miscellaneous Specialty Retail",
+    "reportable": 0
+  },
+  {
+    "codes": [
+      "6010"
+    ],
+    "name": "Manual Cash Disburse",
+    "reportable": 0
+  },
+  {
+    "codes": [
+      "6011"
+    ],
+    "name": "Automated Cash Disburse",
+    "reportable": 0
+  },
+  {
+    "codes": [
+      "6012"
+    ],
+    "name": "Financial Institutions",
+    "reportable": 1
+  },
+  {
+    "codes": [
+      "6051"
+    ],
+    "name": "Non-FI, Money Orders",
+    "reportable": 0
+  },
+  {
+    "codes": [
+      "6211"
+    ],
+    "name": "Security Brokers/Dealers",
+    "reportable": 1
+  },
+  {
+    "codes": [
+      "6300"
+    ],
+    "name": "Insurance Underwriting, Premiums",
+    "reportable": 0
+  },
+  {
+    "codes": [
+      "6399"
+    ],
+    "name": "Insurance - Default",
+    "reportable": 0
+  },
+  {
+    "codes": [
+      "6513"
+    ],
+    "name": "Real Estate Agents and Managers - Rentals",
+    "reportable": 1
+  },
+  {
+    "codes": [
+      "7011"
+    ],
+    "name": "Hotels, Motels, and Resorts",
+    "reportable": 1
+  },
+  {
+    "codes": [
+      "7012"
+    ],
+    "name": "Timeshares",
+    "reportable": 1
+  },
+  {
+    "codes": [
+      "7032"
+    ],
+    "name": "Sporting/Recreation Camps",
+    "reportable": 1
+  },
+  {
+    "codes": [
+      "7033"
+    ],
+    "name": "Trailer Parks, Campgrounds",
+    "reportable": 1
+  },
+  {
+    "codes": [
+      "7210"
+    ],
+    "name": "Laundry, Cleaning Services",
+    "reportable": 1
+  },
+  {
+    "codes": [
+      "7211"
+    ],
+    "name": "Laundries ",
+    "reportable": 1
+  },
+  {
+    "codes": [
+      "7216"
+    ],
+    "name": "Dry Cleaners",
+    "reportable": 1
+  },
+  {
+    "codes": [
+      "7217"
+    ],
+    "name": "Carpet/Upholstery Cleaning",
+    "reportable": 1
+  },
+  {
+    "codes": [
+      "7221"
+    ],
+    "name": "Photographic Studios",
+    "reportable": 1
+  },
+  {
+    "codes": [
+      "7230"
+    ],
+    "name": "Barber and Beauty Shops",
+    "reportable": 1
+  },
+  {
+    "codes": [
+      "7251"
+    ],
+    "name": "Shoe Repair/Hat Cleaning",
+    "reportable": 1
+  },
+  {
+    "codes": [
+      "7261"
+    ],
+    "name": "Funeral Services, Crematories",
+    "reportable": 1
+  },
+  {
+    "codes": [
+      "7273"
+    ],
+    "name": "Dating/Escort Services",
+    "reportable": 1
+  },
+  {
+    "codes": [
+      "7276"
+    ],
+    "name": "Tax Preparation Services",
+    "reportable": 1
+  },
+  {
+    "codes": [
+      "7277"
+    ],
+    "name": "Counseling Services",
+    "reportable": 1
+  },
+  {
+    "codes": [
+      "7278"
+    ],
+    "name": "Buying/Shopping Services",
+    "reportable": 1
+  },
+  {
+    "codes": [
+      "7296"
+    ],
+    "name": "Clothing Rental ",
+    "reportable": 1
+  },
+  {
+    "codes": [
+      "7297"
+    ],
+    "name": "Massage Parlors",
+    "reportable": 1
+  },
+  {
+    "codes": [
+      "7298"
+    ],
+    "name": "Health and Beauty Spas",
+    "reportable": 1
+  },
+  {
+    "codes": [
+      "7299"
+    ],
+    "name": "Miscellaneous General Services",
+    "reportable": 1
+  },
+  {
+    "codes": [
+      "7311"
+    ],
+    "name": "Advertising Services",
+    "reportable": 1
+  },
+  {
+    "codes": [
+      "7321"
+    ],
+    "name": "Credit Reporting Agencies",
+    "reportable": 1
+  },
+  {
+    "codes": [
+      "7333"
+    ],
+    "name": "Commercial Photography, Art and Graphics",
+    "reportable": 1
+  },
+  {
+    "codes": [
+      "7338"
+    ],
+    "name": "Quick Copy, Repro, and Blueprint",
+    "reportable": 1
+  },
+  {
+    "codes": [
+      "7339"
+    ],
+    "name": "Secretarial Support Services",
+    "reportable": 1
+  },
+  {
+    "codes": [
+      "7342"
+    ],
+    "name": "Exterminating Services",
+    "reportable": 1
+  },
+  {
+    "codes": [
+      "7349"
+    ],
+    "name": "Cleaning and Maintenance",
+    "reportable": 1
+  },
+  {
+    "codes": [
+      "7361"
+    ],
+    "name": "Employment/Temp Agencies",
+    "reportable": 1
+  },
+  {
+    "codes": [
+      "7372"
+    ],
+    "name": "Computer Programming",
+    "reportable": 1
+  },
+  {
+    "codes": [
+      "7375"
+    ],
+    "name": "Information Retrieval Services",
+    "reportable": 1
+  },
+  {
+    "codes": [
+      "7379"
+    ],
+    "name": "Computer Repair",
+    "reportable": 1
+  },
+  {
+    "codes": [
+      "7392"
+    ],
+    "name": "Consulting, Public Relations",
+    "reportable": 1
+  },
+  {
+    "codes": [
+      "7393"
+    ],
+    "name": "Detective Agencies",
+    "reportable": 1
+  },
+  {
+    "codes": [
+      "7394"
+    ],
+    "name": "Equipment Rental ",
+    "reportable": 1
+  },
+  {
+    "codes": [
+      "7395"
+    ],
+    "name": "Photo Developing",
+    "reportable": 1
+  },
+  {
+    "codes": [
+      "7399"
+    ],
+    "name": "Miscellaneous Business Services ",
+    "reportable": 1
+  },
+  {
+    "codes": [
+      "7511"
+    ],
+    "name": "Truck Stop",
+    "reportable": 1
+  },
+  {
+    "codes": [
+      "7512"
+    ],
+    "name": "Car Rental Agencies",
+    "reportable": 1
+  },
+  {
+    "codes": [
+      "7513"
+    ],
+    "name": "Truck/Utility Trailer Rentals",
+    "reportable": 1
+  },
+  {
+    "codes": [
+      "7519"
+    ],
+    "name": "Recreational Vehicle Rentals",
+    "reportable": 1
+  },
+  {
+    "codes": [
+      "7523"
+    ],
+    "name": "Parking Lots, Garages",
+    "reportable": 1
+  },
+  {
+    "codes": [
+      "7531"
+    ],
+    "name": "Auto Body Repair Shops",
+    "reportable": 1
+  },
+  {
+    "codes": [
+      "7534"
+    ],
+    "name": "Tire Retreading and Repair",
+    "reportable": 1
+  },
+  {
+    "codes": [
+      "7535"
+    ],
+    "name": "Auto Paint Shops",
+    "reportable": 1
+  },
+  {
+    "codes": [
+      "7538"
+    ],
+    "name": "Auto Service Shops",
+    "reportable": 1
+  },
+  {
+    "codes": [
+      "7542"
+    ],
+    "name": "Car Washes",
+    "reportable": 1
+  },
+  {
+    "codes": [
+      "7549"
+    ],
+    "name": "Towing Services",
+    "reportable": 1
+  },
+  {
+    "codes": [
+      "7622"
+    ],
+    "name": "Electronics Repair Shops",
+    "reportable": 1
+  },
+  {
+    "codes": [
+      "7623"
+    ],
+    "name": "A/C, Refrigeration Repair",
+    "reportable": 1
+  },
+  {
+    "codes": [
+      "7629"
+    ],
+    "name": "Small Appliance Repair",
+    "reportable": 1
+  },
+  {
+    "codes": [
+      "7631"
+    ],
+    "name": "Watch/Jewelry Repair",
+    "reportable": 1
+  },
+  {
+    "codes": [
+      "7641"
+    ],
+    "name": "Furniture Repair, Refinishing",
+    "reportable": 1
+  },
+  {
+    "codes": [
+      "7692"
+    ],
+    "name": "Welding Repair",
+    "reportable": 1
+  },
+  {
+    "codes": [
+      "7699"
+    ],
+    "name": "Miscellaneous Repair Shops",
+    "reportable": 1
+  },
+  {
+    "codes": [
+      "7829"
+    ],
+    "name": "Picture/Video Production",
+    "reportable": 1
+  },
+  {
+    "codes": [
+      "7832"
+    ],
+    "name": "Motion Picture Theaters",
+    "reportable": 1
+  },
+  {
+    "codes": [
+      "7841"
+    ],
+    "name": "Video Tape Rental Stores",
+    "reportable": 1
+  },
+  {
+    "codes": [
+      "7911"
+    ],
+    "name": "Dance Hall, Studios, Schools",
+    "reportable": 1
+  },
+  {
+    "codes": [
+      "7922"
+    ],
+    "name": "Theatrical Ticket Agencies",
+    "reportable": 1
+  },
+  {
+    "codes": [
+      "7929"
+    ],
+    "name": "Bands, Orchestras",
+    "reportable": 1
+  },
+  {
+    "codes": [
+      "7932"
+    ],
+    "name": "Billiard/Pool Establishments",
+    "reportable": 1
+  },
+  {
+    "codes": [
+      "7933"
+    ],
+    "name": "Bowling Alleys",
+    "reportable": 1
+  },
+  {
+    "codes": [
+      "7941"
+    ],
+    "name": "Sports Clubs/Fields",
+    "reportable": 1
+  },
+  {
+    "codes": [
+      "7991"
+    ],
+    "name": "Tourist Attractions and Exhibits",
+    "reportable": 1
+  },
+  {
+    "codes": [
+      "7992"
+    ],
+    "name": "Golf Courses - Public",
+    "reportable": 1
+  },
+  {
+    "codes": [
+      "7993"
+    ],
+    "name": "Video Amusement Game Supplies",
+    "reportable": 0
+  },
+  {
+    "codes": [
+      "7994"
+    ],
+    "name": "Video Game Arcades",
+    "reportable": 1
+  },
+  {
+    "codes": [
+      "7995"
+    ],
+    "name": "Betting/Casino Gambling",
+    "reportable": 1
+  },
+  {
+    "codes": [
+      "7996"
+    ],
+    "name": "Amusement Parks/Carnivals",
+    "reportable": 1
+  },
+  {
+    "codes": [
+      "7997"
+    ],
+    "name": "Country Clubs",
+    "reportable": 1
+  },
+  {
+    "codes": [
+      "7998"
+    ],
+    "name": "Aquariums",
+    "reportable": 1
+  },
+  {
+    "codes": [
+      "7999"
+    ],
+    "name": "Miscellaneous Recreation Services",
+    "reportable": 1
+  },
+  {
+    "codes": [
+      "8011"
+    ],
+    "name": "Doctors",
+    "reportable": 1
+  },
+  {
+    "codes": [
+      "8021"
+    ],
+    "name": "Dentists, Orthodontists",
+    "reportable": 1
+  },
+  {
+    "codes": [
+      "8031"
+    ],
+    "name": "Osteopaths",
+    "reportable": 1
+  },
+  {
+    "codes": [
+      "8041"
+    ],
+    "name": "Chiropractors",
+    "reportable": 1
+  },
+  {
+    "codes": [
+      "8042"
+    ],
+    "name": "Optometrists, Ophthalmologist",
+    "reportable": 1
+  },
+  {
+    "codes": [
+      "8043"
+    ],
+    "name": "Opticians, Eyeglasses",
+    "reportable": 1
+  },
+  {
+    "codes": [
+      "8049"
+    ],
+    "name": "Chiropodists, Podiatrists",
+    "reportable": 1
+  },
+  {
+    "codes": [
+      "8050"
+    ],
+    "name": "Nursing/Personal Care ",
+    "reportable": 1
+  },
+  {
+    "codes": [
+      "8062"
+    ],
+    "name": "Hospitals",
+    "reportable": 1
+  },
+  {
+    "codes": [
+      "8071"
+    ],
+    "name": "Medical and Dental Labs",
+    "reportable": 1
+  },
+  {
+    "codes": [
+      "8099"
+    ],
+    "name": "Medical Services ",
+    "reportable": 1
+  },
+  {
+    "codes": [
+      "8111"
+    ],
+    "name": "Legal Services, Attorneys",
+    "reportable": 1
+  },
+  {
+    "codes": [
+      "8211"
+    ],
+    "name": "Elementary, Secondary Schools",
+    "reportable": 0
+  },
+  {
+    "codes": [
+      "8220"
+    ],
+    "name": "Colleges, Universities",
+    "reportable": 0
+  },
+  {
+    "codes": [
+      "8241"
+    ],
+    "name": "Correspondence Schools",
+    "reportable": 0
+  },
+  {
+    "codes": [
+      "8244"
+    ],
+    "name": "Business/Secretarial Schools",
+    "reportable": 0
+  },
+  {
+    "codes": [
+      "8249"
+    ],
+    "name": "Vocational/Trade Schools",
+    "reportable": 0
+  },
+  {
+    "codes": [
+      "8299"
+    ],
+    "name": "Educational Services ",
+    "reportable": 1
+  },
+  {
+    "codes": [
+      "8351"
+    ],
+    "name": "Child Care Services",
+    "reportable": 1
+  },
+  {
+    "codes": [
+      "8398"
+    ],
+    "name": "Charitable and Social Service Organizations - Fundraising",
+    "reportable": 0
+  },
+  {
+    "codes": [
+      "8641"
+    ],
+    "name": "Civic, Social, Fraternal Associations",
+    "reportable": 0
+  },
+  {
+    "codes": [
+      "8651"
+    ],
+    "name": "Political Organizations",
+    "reportable": 1
+  },
+  {
+    "codes": [
+      "8661"
+    ],
+    "name": "Religious Organizations",
+    "reportable": 0
+  },
+  {
+    "codes": [
+      "8675"
+    ],
+    "name": "Automobile Associations",
+    "reportable": 1
+  },
+  {
+    "codes": [
+      "8699"
+    ],
+    "name": "Membership Organizations",
+    "reportable": 1
+  },
+  {
+    "codes": [
+      "8734"
+    ],
+    "name": "Testing Laboratories",
+    "reportable": 1
+  },
+  {
+    "codes": [
+      "8911"
+    ],
+    "name": "Architectural/Surveying Services",
+    "reportable": 1
+  },
+  {
+    "codes": [
+      "8931"
+    ],
+    "name": "Accounting/Bookkeeping Services",
+    "reportable": 1
+  },
+  {
+    "codes": [
+      "8999"
+    ],
+    "name": "Professional Services",
+    "reportable": 1
+  },
+  {
+    "codes": [
+      "9211"
+    ],
+    "name": "Court Costs, Including Alimony and Child Support - Courts of Law",
+    "reportable": 0
+  },
+  {
+    "codes": [
+      "9222"
+    ],
+    "name": "Fines - Government Administrative Entities",
+    "reportable": 0
+  },
+  {
+    "codes": [
+      "9223"
+    ],
+    "name": "Bail and Bond Payments (payment to the surety for the bond, not the actual bond paid to the government agency)",
+    "reportable": 1
+  },
+  {
+    "codes": [
+      "9311"
+    ],
+    "name": "Tax Payments - Government Agencies",
+    "reportable": 0
+  },
+  {
+    "codes": [
+      "9399"
+    ],
+    "name": "Government Services (Not Elsewhere Classified)",
+    "reportable": 0
+  },
+  {
+    "codes": [
+      "9402"
+    ],
+    "name": "Postal Services - Government Only",
+    "reportable": 0
+  },
+  {
+    "codes": [
+      "9405"
+    ],
+    "name": "U.S. Federal Government Agencies or Departments",
+    "reportable": 0
+  },
+  {
+    "codes": [
+      "9950"
+    ],
+    "name": "Intra-Company Purchases",
+    "reportable": 0
+  }
+]

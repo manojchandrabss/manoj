@@ -1,0 +1,38 @@
+{% load crispy_forms_tags %}
+<div class="form-flag-item hidden">
+  <h5 class="mt0 mb20">Flag Item</h5>
+  <div class="form-inline mb20">
+    <div class="form-group">
+      <div class="custom-checkbox">
+        <input type="checkbox" 
+               id="id-flag-{{ forloop.counter0 }}" 
+               class="hidden">
+        <label for="id-flag-{{ forloop.counter0 }}" 
+               class="btn-switch"></label>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="id-flag-{{ forloop.counter0 }}">Irrelevant</label>
+    </div>
+  </div>
+  <div class="form-inline mb20">
+    <div class="form-group">
+      <div class="custom-checkbox">
+        <input type="checkbox" 
+               id="id-flag-{{ forloop.counter }}" 
+               class="hidden">
+        <label for="id-flag-{{ forloop.counter }}" 
+               class="btn-switch"></label>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="id-flag-{{ forloop.counter }}">Incorrect Interpretation</label>
+    </div>
+  </div>
+  <a href="javascript:void(0);" 
+     class="btn btn-lg btn-blue btn-block dismiss-flag-item">Save</a>
+  <div class="text-center mt10 hide-flag-item">
+    <a class="btn btn-link" 
+       onclick="Popover.close($(this).closest('.popover')); return false;">Cancel</a>
+  </div>
+</div>

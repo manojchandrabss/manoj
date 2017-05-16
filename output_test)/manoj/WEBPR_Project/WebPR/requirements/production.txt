@@ -1,0 +1,39 @@
+-r base.txt
+
+# Generate our documentation on the fly
+mkdocs==0.14.0
+
+coverage==4.0.3
+django_coverage_plugin==1.1
+Sphinx
+django-extensions==1.5.9
+Werkzeug==0.11.2
+django-test-plus==1.0.11
+flake8==2.4.1
+pep8==1.6.2
+# django-debug-toolbar that works with Django 1.5+
+django-debug-toolbar==1.4
+
+# improved REPL
+ipdb==0.8.1
+ipython==4.0.1
+ipython-genutils==0.1.0
+
+# Raven client for our sentry service
+raven==5.10.2
+
+# Newrelic agent
+newrelic
+
+# Boto for S3 file storage
+boto==2.39.0
+
+
+# opbeat agent
+opbeat
+
+#html5lib for parsing
+html5lib==0.9999999
+
+# date parser
+dateparser==0.3.4

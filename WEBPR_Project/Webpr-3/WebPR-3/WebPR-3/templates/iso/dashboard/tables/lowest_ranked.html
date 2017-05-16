@@ -1,0 +1,48 @@
+<div class="block-controls flex-between">
+  <h5>Lowest Ranked Merchants</h5>
+  {% include 'merchant/paginator.html' with paginator_class="lrm_page" paginator_id="lrm_paginator" %}
+</div>
+<table class="table table-striped table-hover table-heading">
+  <thead>
+    <tr>
+      <th width="300">Merchant Name/ID</th>
+      <th width="100">Score</th>
+      <th>4-{{ period }} trend</th>
+    </tr>
+  </thead>
+</table>
+<table class="table table-striped table-hover table-body waitable waiting">
+  <tbody>
+    {% if not page_obj %}
+    <tr>
+      <td colspan="6" 
+          align="center">No data has been found</td>
+    </tr>
+    {% else %}
+    {% for rating in page_obj %}
+    <tr>
+      <td width="300">
+        <b class="w50 pull-left">{{ forloop.counter0|add:page_obj.start_index }}.</b>
+        <a href="{{ rating.merchant.get_absolute_url }}">
+          <b>{{ rating.merchant }}</b>
+        </a>
+      </td>
+      <td width="100"><b>{{ rating.rating|floatformat:0 }}</b></td>
+      <td>
+        {% if rating.is_trend_positive %}
+          <i class="fa fa-caret-up triangle triangle-green"></i>
+        {% else %}
+          <i class="fa fa-caret-down triangle triangle-red"></i>
+        {% endif %}
+
+      </td>
+      <td class="sparkline" 
+          data-chart-data="{{ rating.trend }}">
+        <canvas width="45" 
+                height="15"></canvas>
+      </td>
+    </tr>
+    {% endfor %}
+    {% endif %}
+  </tbody>
+</table>

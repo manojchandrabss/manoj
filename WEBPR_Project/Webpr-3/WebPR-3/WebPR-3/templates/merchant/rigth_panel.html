@@ -1,0 +1,10 @@
+<div class="block-right analytics">
+  <div id="merchant_mentions" 
+       data-url="{% url 'mentions:iso_mention_chart' %}">
+    {% include 'widgets/mentions.html' with controls=1 %}
+  </div>
+  <div id="merchant_resp_rate" 
+       data-url="{% url 'mentions:merchant_response' %}">
+    {% include 'merchant/resolved_complaints.html' %}
+  </div>
+</div>

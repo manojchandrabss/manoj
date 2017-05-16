@@ -1,0 +1,58 @@
+<div class="block-main full">
+  <div class="panel panel-gradient" 
+       id="merchant_top_score">
+    <div class="panel-body equal-height clearfix waitable waiting">
+      <div class="block-width-200">
+        <div class="vs white clearfix">
+          <div class="title">Average Score</div>
+            <div class="col-value left">
+              <div class="value" 
+                   id="merchant_score"></div>
+              <div class="caption" 
+                   id="merchant" 
+                   style="margin: 12px">You</div>
+            </div>
+            <div class="col-value" >
+              <div class="value" 
+                   id="industry_score"></div>
+              <div class="caption" 
+                   id="industry" 
+                   style="margin: 12px;">{% if company.category %}{{ company.category|truncatewords:2 }}{% else %}Industry{% endif %}</div>
+            </div>
+          </div>
+        </div>
+        <div class="block-width-510">
+          <h5 class="mt0 pl20"><b>Performance Tracking</b></h5>
+          <div class="chart">
+            <canvas id="tracking" 
+                    width="460" 
+                    height="120"></canvas>
+            <div class="pr40">
+              <div id="legendTracking" 
+                   class="tracking-legend clearfix"></div>
+            </div>
+          </div>
+        </div>
+        <div class="block-width-200 equal-height">
+          <div class="jumbotron jumbotron-pad">
+            <h6>Analysis</h6>
+            <p>Your average WebPR score & performance is <b id="score_comment">above</b> the industry average.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--
+    <div class="panel panel-gradient" 
+         class="merchant_avg_score">
+      <div class="panel-heading">Avg. Score (This Quarter)</div>
+      <div class="panel-body">
+        <div class="chart">
+          <canvas id="avgScore" 
+                  width="910" 
+                  height="170"></canvas>
+        </div>
+      </div>
+    </div>
+    -->
+    <hr>
+</div>

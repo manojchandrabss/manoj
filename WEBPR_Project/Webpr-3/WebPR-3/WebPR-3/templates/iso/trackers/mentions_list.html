@@ -1,0 +1,6 @@
+{% if not object_list %}
+<div class="list-group-item text-center note">No results</div>
+{% endif %}
+{% for mention in object_list %}
+{% include 'iso/trackers/mention.html' %}
+{% endfor %}

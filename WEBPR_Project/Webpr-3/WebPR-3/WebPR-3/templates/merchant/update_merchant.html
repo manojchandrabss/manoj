@@ -1,0 +1,28 @@
+{% load crispy_forms_tags %}
+
+<div id="updateMerchantModal" 
+     tabindex="-1" 
+     role="dialog" 
+     aria-labelledby="updateMerchantModal" 
+     class="modal centered add-merchant fade lg" 
+     data-id="{{ company.id }}">
+  <div role="document" 
+       class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header pb0">
+        <h2 id="updateMerchantLabel" 
+            class="modal-title">{{ company.official_name }}</h2>
+      </div>
+      <div class="modal-body">
+        <div id="update-merchant-form">
+          {% crispy form %}
+        </div>
+        <div class="text-center mt10">
+          <button href="javascript:void(0);" 
+                  data-handler="close" 
+                  class="btn btn-link click-handler">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

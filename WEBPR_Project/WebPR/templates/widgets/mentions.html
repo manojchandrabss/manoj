@@ -1,0 +1,20 @@
+<div class="panel panel-blue">
+  <div class="panel-heading">Mentions</div>
+  <div class="panel-body waitable waiting">
+    <ul class="list-tab">
+      <li class="period-toggle click-handler active" 
+          data-handler="period" 
+          data-period="week" 
+          onclick="return false;">WEEK</li>
+      <li class="period-toggle click-handler" 
+          data-handler="period" 
+          data-period="month" 
+          onclick="return false;">MONTH</li>
+    </ul>
+    <div class="chart">
+      <canvas id="mentions" 
+              width="170" 
+              height="110"></canvas>
+    </div>
+  </div>
+</div>

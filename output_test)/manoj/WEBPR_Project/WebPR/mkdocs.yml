@@ -1,0 +1,7 @@
+site_name: webpr
+pages:
+  - Home: index.md
+
+  - Changelog: changelog.md
+theme: readthedocs
+site_dir: docs/build

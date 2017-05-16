@@ -1,0 +1,8 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =6
+let g:netrw_dirhist_1='/home/manoj/WEBPR_Project/WebPR/requirements'
+let g:netrw_dirhist_2='/home/manoj/WEBPR_Project'
+let g:netrw_dirhist_3='/home/manoj/WEBPR_Project/Webpr-3/WebPR-3/WebPR-3/requirements'
+let g:netrw_dirhist_4='/home/manoj/un_chef/cookbooks/un_apache'
+let g:netrw_dirhist_5='/home/manoj/un_chef/cookbooks/un_apache/recipes'
+let g:netrw_dirhist_6='/home/manoj/un_chef/cookbooks/un_apache/templates/default'

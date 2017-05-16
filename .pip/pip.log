@@ -1,0 +1,52 @@
+------------------------------------------------------------
+/usr/bin/pip3 run on Fri Mar  3 19:52:24 2017
+Downloading/unpacking libpq-dev
+  Getting page https://pypi.python.org/simple/libpq-dev/
+Cleaning up...
+  Removing temporary dir /tmp/pip_build_root...
+Operation cancelled by user
+Exception information:
+Traceback (most recent call last):
+  File "/usr/lib/python3/dist-packages/pip/basecommand.py", line 122, in main
+    status = self.run(options, args)
+  File "/usr/lib/python3/dist-packages/pip/commands/install.py", line 278, in run
+    requirement_set.prepare_files(finder, force_root_egg_info=self.bundle, bundle=self.bundle)
+  File "/usr/lib/python3/dist-packages/pip/req.py", line 1178, in prepare_files
+    url = finder.find_requirement(req_to_install, upgrade=self.upgrade)
+  File "/usr/lib/python3/dist-packages/pip/index.py", line 194, in find_requirement
+    page = self._get_page(main_index_url, req)
+  File "/usr/lib/python3/dist-packages/pip/index.py", line 568, in _get_page
+    session=self.session,
+  File "/usr/lib/python3/dist-packages/pip/index.py", line 670, in get_page
+    resp = session.get(url, headers={"Accept": "text/html"})
+  File "/usr/share/python-wheels/requests-2.2.1-py2.py3-none-any.whl/requests/sessions.py", line 467, in get
+    return self.request('GET', url, **kwargs)
+  File "/usr/lib/python3/dist-packages/pip/download.py", line 237, in request
+    return super(PipSession, self).request(method, url, *args, **kwargs)
+  File "/usr/share/python-wheels/requests-2.2.1-py2.py3-none-any.whl/requests/sessions.py", line 455, in request
+    resp = self.send(prep, **send_kwargs)
+  File "/usr/share/python-wheels/requests-2.2.1-py2.py3-none-any.whl/requests/sessions.py", line 558, in send
+    r = adapter.send(request, **kwargs)
+  File "/usr/share/python-wheels/requests-2.2.1-py2.py3-none-any.whl/requests/adapters.py", line 330, in send
+    timeout=timeout
+  File "/usr/share/python-wheels/urllib3-1.7.1-py2.py3-none-any.whl/urllib3/connectionpool.py", line 562, in urlopen
+    body=body, headers=headers)
+  File "/usr/share/python-wheels/urllib3-1.7.1-py2.py3-none-any.whl/urllib3/connectionpool.py", line 387, in _make_request
+    conn.request(method, url, **httplib_request_kw)
+  File "/usr/lib/python3.4/http/client.py", line 1125, in request
+    self._send_request(method, url, body, headers)
+  File "/usr/lib/python3.4/http/client.py", line 1163, in _send_request
+    self.endheaders(body)
+  File "/usr/lib/python3.4/http/client.py", line 1121, in endheaders
+    self._send_output(message_body)
+  File "/usr/lib/python3.4/http/client.py", line 951, in _send_output
+    self.send(msg)
+  File "/usr/lib/python3.4/http/client.py", line 886, in send
+    self.connect()
+  File "/usr/share/python-wheels/urllib3-1.7.1-py2.py3-none-any.whl/urllib3/connectionpool.py", line 111, in connect
+    timeout=self.timeout)
+  File "/usr/lib/python3.4/socket.py", line 494, in create_connection
+    for res in getaddrinfo(host, port, 0, SOCK_STREAM):
+  File "/usr/lib/python3.4/socket.py", line 533, in getaddrinfo
+    for res in _socket.getaddrinfo(host, port, family, type, proto, flags):
+KeyboardInterrupt

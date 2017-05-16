@@ -1,0 +1,373 @@
+{
+  "dependencies":{
+    "update_workflow_job_description":[
+      "destroy_vms"
+    ],
+    "@end":[
+      "update_workflow_job_description"
+    ],
+    "get_subscription_db_version_info":[
+      "deploy_subscription_processor_at_env"
+    ],
+    "destroy_vms":[
+      "get_logs",
+      "download_groovy_projects"
+    ],
+    "run_tests":[
+      "get_subscription_db_version_info"
+    ],
+    "run_groovy_tests":[
+      "run_tests"
+    ],
+    "@start":[],
+    "prepare_vms":[
+      "get_vms"
+    ],
+    "deploy_subscription_processor_at_env":[
+      "prepare_vms"
+    ],
+    "get_vms":[
+      "@start"
+    ],
+    "download_groovy_projects": [
+      "run_groovy_tests"
+    ],
+    "get_logs":[
+      "run_groovy_tests"
+    ]
+  },
+  "resources": {
+    "nodes": {
+      "subscription": {
+        "subscription_env": {
+          "network": "macys",
+          "image": "c4d-centos6",
+          "use_private_ip": true,
+          "provider": "gce",
+          "provision": true,
+          "size": "n1-standard-1"
+        }
+      }
+    },
+    "parameters": {
+      "netfunction": {
+        "url": "http://netfunction.devops.fds.com"
+      },
+      "subscription_db": {
+        "db_password": "subscription123",
+        "db_user": "subscription",
+        "db_name": "subscription"
+      },
+      "db_release": "trunk",
+      "jenkins_servers": {
+        "dev": {
+          "api_endpoint": "http://platform-ci.devops.fds.com:8080/jenkins",
+          "token": "31c1d10feeca332906c07833722a9c40",
+          "user": "da-MCOM-WDSDevOps"
+        }
+      },
+      "ad_subscription_db_info": {
+        "cert_data_field": "ad_subscription_db_info_field",
+        "dashboard_url": "http://adb.devops.fds.com/artifacts/search/named?safe&name=subscription_db"
+      },
+      "use_resource_pool": "false",
+      "resource_pool_url": "http://localhost/resources",
+      "review_flow_build_url": "",
+      "zookeeper_host": "zookeper.devops.fds.com:8080",
+      "artifact_urls": {
+        "build_number": "build.number",
+        "git_repo_branch": "master",
+        "subscription_config": "subscription.config",
+        "subscription_war": "subscription.war",
+        "simulator": "simulator",
+        "simulator_ia": "simulator_ia",
+        "release": "release.version",
+        "prop_inspector": "prop_inspector"
+      }
+    },
+    "databases": {}
+  },
+  "actions":{
+    "update_workflow_job_description":{
+      "token":"adkn@SDasdk#$n3_4",
+      "vital":false,
+      "type":"jenkins-update-build-description",
+      "simulate":false,
+      "parameters":{
+        "technique":"append",
+        "jenkins_build_url":"@parameters/review_flow_build_url",
+        "description":"<br><a href=#{@parameters/executed_jenkins_jobs/get_logs}>Get Logs</a><br><br><a href=#{@parameters/executed_jenkins_jobs/run_tests}>Tests</a><br>"
+      }
+    },
+    "@end":{},
+    "get_subscription_db_version_info":{
+      "type":"get-cert-info",
+      "simulate":false,
+      "parameters":{
+        "release":"#{@parameters/artifact_urls/release}",
+        "cert_data_field":"#{@parameters/ad_subscription_db_info/cert_data_field}",
+        "dashboard_url":"#{@parameters/ad_subscription_db_info/dashboard_url}"
+      }
+    },
+    "run_groovy_tests":{
+      "json":{
+        "maven": {
+          "mavenrc": {
+            "opts": "-Dmaven.repo.local=$HOME/.m2/repository"
+          }
+        },
+        "java":{
+          "install_flavor":"oracle",
+          "jdk_version":8,
+          "alternatives_priority":0,
+          "oracle":{
+            "jce":{
+              "enabled":"true",
+              "8":{
+                "url":"http://storage.devops.fds.com/distr/java/jce_policy-8.zip",
+                "checksum":"80212f7748c2671b89b6085000717c747851db004409dce3bb97f3a2aeb91cdd"
+              }
+            }
+          },
+          "jdk":{
+            "8":{
+              "x86_64":{
+                "url":"http://storage.devops.fds.com/distr/java/jdk-8u65-linux-x64.tar.gz",
+                "checksum":"88db2aacdc222c2add4d92822f528b7a2101552272db4487f33b38b0b47826e7"
+              }
+            }
+          }
+        },
+        "macys_maven": {
+          "version": "3.3.9",
+          "localRepository": "/root/.m2/repository",
+          "user": "root",
+          "group": "root",
+          "user_home": "/root",
+          "releaseDistributionLocaltion": "http://ci-artifacts.devops.fds.com/macys-release-local",
+          "snapshotDistributionLocaltion": "http://ci-artifacts.devops.fds.com/macys-snapshot-local",
+          "repositories": {
+            "macysSnapshots": {
+              "url": "http://ci-artifacts.devops.fds.com/public-snapshots"
+            }
+          },
+          "pluginRepositories": {
+            "MacysInternalSnapshots": {
+              "url": "http://ci-artifacts.devops.fds.com/public-snapshots"
+            },
+            "PluginSnapshots": {
+              "url": "http://ci-artifacts.devops.fds.com/public-snapshots"
+            }
+          },
+          "mirrors": {
+            "MacysNexus": {
+              "name": "Macys.com Nexus (Loraine)",
+              "url": "http://ci-artifacts.devops.fds.com/public"
+            }
+          }
+        },
+        "soap_runner":{
+          "git_revision": "#{@parameters/artifact_urls/git_repo_branch}",
+          "git_repository": "https://code.devops.fds.com/CAP/SubscriptionProcessor.git",
+          "property_file": "src/test/resources/config.properties",
+          "type_test": "store",
+          "runner_dir": "/tmp/soap_tests/FunctionalTests/subscriptiontests",
+          "application": "MCOM",
+          "folders_to_archive": "logs",
+          "maven_opts": {
+            "store_MCOM": "-e -B -U -fn -DtestFailIgnore=true -Dmaven.test.failure.ignore=true -Dmaven.test.error.ignore=true >> /tmp/soap_tests/FunctionalTests/subscriptiontests/test_output"
+          },
+          "properties": {
+            "subscription.host": "http://#{@nodes/subscription_env/ip}:8080/",
+            "driver": "org.postgresql.Driver",
+            "dburl": "jdbc\\:postgresql://#{@nodes/subscription_env/ip}:5432/#{@parameters/subscription_db/db_name}",
+            "username": "#{@parameters/subscription_db/db_user}",
+            "password": "#{@parameters/subscription_db/db_password}",
+            "mockHost": "localhost",
+            "mockPort": "40000",
+            "mocksPath": "src/test/resources/wiremock"
+          }
+        },
+        "run_list":[
+          "recipe[java]",
+          "recipe[soap_runner]"
+        ]
+      },
+      "vital":false,
+      "simulate":false,
+      "nodes":{
+        "type":"LIST",
+        "node_list":[
+          "subscription_env"
+        ]
+      },
+      "type":"chef-client",
+      "parameters":{
+        "soap_log_url": "http://#{@nodes/subscription_env/ip}/logs/soap/soapui.log"
+      }
+    },
+    "run_tests":{
+      "parameters":{
+        "TARGET_NODE_IP":"#{@nodes/subscription_env/ip}",
+        "gitlabSourceBranch":"#{@parameters/artifact_urls/git_repo_branch}",
+        "release":"#{@parameters/artifact_urls/release}",
+        "REVIEW_FLOW_BUILD_URL":"#{@parameters/review_flow_build_url}",
+        "DB_NAME":"#{@parameters/subscription_db/db_name}",
+        "DB_PASS":"#{@parameters/subscription_db/db_password}",
+        "DB_USER":"#{@parameters/subscription_db/db_user}",
+        "DB_TAR_URL":"#{@parameters/ad_subscription_db_info_field/subscription_db/location}"
+      },
+      "token":"adkn@SDasdk#$n3_4",
+      "vital":false,
+      "simulate":false,
+      "type":"jenkins-job",
+      "job_name":"SubscriptionProcessor_Review_Flow_Tests"
+    },
+    "download_groovy_projects":{
+      "nodes":{
+        "type":"LIST",
+        "node_list":[
+          "subscription_env"
+        ]
+      },
+      "ns":"subscription_env",
+      "type":"sftp-download",
+      "vital":false,
+      "file":"/tmp/test-logs.tar.bz2"
+    },
+    "destroy_vms":{
+      "nodes":{
+        "type":"LIST",
+        "node_list":"subscription"
+      },
+      "vital":true,
+      "type":"vm-delete",
+      "simulate":false
+    },
+    "@start":{},
+    "prepare_vms":{
+      "json":{
+        "users":{
+          "macys":{}
+        },
+        "run_list":[
+          "recipe[common-utils]",
+          "recipe[users]",
+          "recipe[sudo]"
+        ],
+        "ssh_keys":{
+          "macys":"ssh-rsa AAAAB3NzaC1yc2EAAAABJQAAAIEA3cQpZJp7zDo6T77dixzobktd6cAYrsSEIZkfKMg1jo9rEhxb8NOTLlW5KGkdIBv/A99Sbc0Mt0BrL7zXzLjaDhUL2AgSv33/QcusdUmJkM3Tbd659/ebMlwhXaQbrrWIsW2H03LJ53rpmiMRQJDy8Fs0oOol5tbYt1A9NXIG3eM= rsa-key-20101005"
+        }
+      },
+      "vital":false,
+      "simulate":false,
+      "nodes":{
+        "type":"LIST",
+        "node_list":"subscription"
+      },
+      "type":"chef-zero"
+    },
+    "deploy_subscription_processor_at_env":{
+      "json":{
+        "postgresql":{
+          "pg_hba":[
+            {
+              "db":"all",
+              "method":"ident",
+              "type":"local",
+              "user":"postgres",
+              "addr": ""
+            },
+            {
+              "db":"all",
+              "method":"ident",
+              "type":"local",
+              "user":"all",
+              "addr":""
+            },
+            {
+              "db":"all",
+              "method":"md5",
+              "type":"host",
+              "user":"all",
+              "addr":"127.0.0.1/32"
+            },
+            {
+              "db":"all",
+              "method":"md5",
+              "type":"host",
+              "user":"all",
+              "addr":"172.17.0.0/16"
+            }
+          ]
+        },
+        "subscription":{
+          "download_url":"#{@parameters/artifact_urls/subscription_war}",
+          "property_service":{
+            "custom_webconfig":"#{@parameters/artifact_urls/subscription_config}",
+            "release":"#{@parameters/artifact_urls/release}",
+            "use_re_overrides": false
+          },
+          "database":{
+            "password":"#{@parameters/subscription_db/db_password}",
+            "user":"#{@parameters/subscription_db/db_user}",
+            "database":"#{@parameters/subscription_db/db_name}"
+          },
+          "servers":{
+            "subscription":{
+              "config_file_env_dir": "subscription.processor.configuration.home"
+            }
+          },
+          "properties":{
+            "log4j.appender.rollingFile.File": "/opt/tomcat_subscription/logs/subscription-processor.log",
+            "spring.datasource.url":"jdbc:postgresql://localhost:5432/#{@parameters/subscription_db/db_name}",
+
+            "selection.beautybox.customer.validation.basepath":"api/customer/v2/users/{id}",
+            "selection.beautybox.customer.validation.hostname":"http://127.0.0.1:40000",
+            "selection.beautybox.validation.agent.resource.host":"http://#{@nodes/subscription_env/ip}:8080/subscription-processor",
+            "selection.beautybox.validation.agent.resource.url":"api/v1/validateusersubscription",
+
+            "server.port":"8080",
+            "spring.application.name":"beautybox",
+            "spring.batch.job.enabled":"false"
+          }
+        },
+        "run_list":[
+          "recipe[java6]",
+          "recipe[subscription::database]",
+          "recipe[subscription::default]"
+        ]
+      },
+      "vital":false,
+      "simulate":false,
+      "nodes":{
+        "type":"LIST",
+        "node_list":[
+          "subscription_env"
+        ]
+      },
+      "type":"chef-client"
+    },
+    "get_vms":{
+      "nodes":{
+        "type":"LIST",
+        "node_list":"subscription"
+      },
+      "type":"vm-provision",
+      "simulate":false
+    },
+    "get_logs":{
+      "parameters":{
+        "TARGET_NODE_IP":"#{@nodes/subscription_env/ip}",
+        "release":"#{@parameters/artifact_urls/release}",
+        "gitlabSourceBranch":"#{@parameters/artifact_urls/git_repo_branch}",
+        "REVIEW_FLOW_BUILD_URL":"#{@parameters/review_flow_build_url}"
+      },
+      "token":"adkn@SDasdk#$n3_4",
+      "vital":false,
+      "simulate":false,
+      "type":"jenkins-job",
+      "job_name":"SubscriptionProcessor_LogCollector_Review"
+    }
+  }
+}

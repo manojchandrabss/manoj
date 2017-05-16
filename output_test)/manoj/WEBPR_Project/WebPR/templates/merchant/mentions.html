@@ -1,0 +1,107 @@
+<div class="block-controls flex-between"
+     id="mentions_pages">
+  <h5>Mentions</h5>
+  <div style="margin-right: auto; padding-left: 35px">
+    <form action=""
+          method="get"
+          id="form_mention"
+          class="block-controls flex-between">
+      <div class="custom-dropdown"
+           id="mention_filter"
+           style="width: 150px">
+        {{ filter.form.mention_status }}
+      </div>
+    </form>
+  </div>
+  {% include 'merchant/paginator.html' with paginator_class="mpage" paginator_id="paginator" %}
+</div>
+<div class="panel panel-gradient"
+     id="mentions_list">
+  <div class="panel-body p0 waitable waiting"
+       id="pb">
+    {% if page_obj %}
+    <div class="list-group"
+         id="mentions_list">
+      {% for mention in page_obj %}
+      <div class="list-group-item" 
+           data-uid="{{ mention.u_id }}" 
+           data-merchant-id="{{ mention.merchant_id }}">
+        {% ifequal forloop.counter0 0 %}
+        <p>{{ date|date:"D, M d" }}</p>
+        {% endifequal %}
+        <div class="media"
+             style="vertical-align: bottom">
+          <div class="media-left">
+            {% if mention.sentiment == 'negative' %}
+            <i class="fa fa-circle dot-red"></i>
+            {% elif mention.sentiment == 'positive' %}
+            <i class="fa fa-circle dot-green"></i>
+            {% else %}
+            <i class="fa fa-circle dot-orange"></i>
+            {% endif %}
+          </div>
+          <div class="media-body">
+            {% with 'img/icons/'|add:mention.get_origin_site_display|add:'.png' as icon %}
+            <h4 class="media-heading pb10">
+              <a href="" 
+                 class="mention_detail" 
+                 data-toggle="modal" 
+                 data-target="#mention_detail" 
+                 id="{{ forloop.counter0 }}" 
+                 onclick="MentionDetailView(this);">ID# {{ mention.u_id.int|truncatechars:8 }}</a> 
+              <a type="hidden" 
+                 href="{{ mention.mention_link }}" 
+                 id="mention_link_list{{ forloop.counter0 }}" 
+                 target="_blank">
+                 {% if mention.get_origin_site_display %}
+                 <img src="{% static icon %}" 
+                      alt="Logo" 
+                      class="img-fluid ml20" 
+                      style="margin-bottom: 5px">
+                 {% endif %}</a>
+              <p class="pb10 mention_detail_view" 
+                 id="mention_text_list{{ forloop.counter0 }}">{{ mention.mention_text|truncatewords:30 }}</p>
+              <div class="date">
+                {% if mention.mention_date %}
+                {{ mention.mention_date }}
+                {% else %}
+                Not available
+                {% endif %}<i class="fa fa-circle"></i>
+                {% if mention.mention_author  %}
+                {{ mention.mention_author }}
+                {% else %}
+                Not available
+                {% endif %}<i class="fa fa-circle"></i>
+                {% ifequal mention.status "Assigned" %}
+                {{ mention.status }}
+                {% else %}
+                Unassigned
+                {% endifequal %}
+              </div>
+              <i style="display: none" 
+                 id="mention_full_text{{ forloop.counter0 }}">{{ mention.mention_text }}</i>
+              {% include "merchant/mention_detail.html" %}
+              <div class="block-buttons" 
+                   style="vertical-align:bottom;">
+                <div class="item add-to-do" 
+                     onclick="Popover.open(this, 'top', $('.form-add-to-do'));">
+                  <i class="fa fa-plus"></i>Add To-Do
+                </div>
+                <a class="item flag-item click-handler {%if mention.status|lower == 'flagged' %}flagged{% endif %}" 
+                   onclick="return false;" data-handler="toggleFlag">
+                  <i class="fa fa-flag"></i> {%if not mention.status|lower == 'flagged' %}Not{% endif %} Mine
+                </a>
+                {% include 'merchant/add_todo.html' %}
+              </div>
+            </h4>
+            {% endwith %}
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    {% else %}
+    <div class="text-center waitable waiting">No data has been found</div>
+    {% endif %}
+  </div>
+</div>

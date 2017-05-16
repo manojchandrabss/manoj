@@ -1,0 +1,44 @@
+postgres:
+ image: mdillon/postgis
+ ports:
+ - "5432"
+ environment:
+    - POSTGRES_DB=webpr_dev
+    - POSTGRES_USER=webpr_user
+    - POSTGRES_PASSWORD=manager
+
+redis:
+  image: redis:2.8
+
+web:
+  build: .
+  ports:
+    - "8000:8000"
+  environment:
+    - APP_ENV=development
+  links:
+    - postgres
+    - redis
+  command: python3.4 manage.py runserver 0.0.0.0:8000
+  volumes:
+    - ./:/home/www/app
+  tty: true
+  environment:
+    - DJANGO_SETTINGS_MODULE=config.settings.local
+
+celery:
+  build: .
+  environment:
+    - APP_ENV=development
+  links:
+    - postgres
+    - redis
+  command:
+    - python3.4 manage.py celerycam --frequency 20
+    - python3.4 manage.py celery worker -Q webpr -l INFO -B
+  volumes:
+    - ./:/home/www/app
+  tty: true
+  environment:
+    - DJANGO_SETTINGS_MODULE=config.settings.local
+    - C_FORCE_ROOT="true"
