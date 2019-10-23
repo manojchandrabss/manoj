@@ -74,7 +74,7 @@ funcy==1.6
 pilkit==1.1.13
 
 # Pillow is the friendly PIL fork by Alex Clark and Contributors. PIL is the Python Imaging Library by Fredrik Lundh and Contributors.
-Pillow==3.0.0
+Pillow==6.2.0
 
 # Database abstraction layer
 psycopg2==2.6.1
