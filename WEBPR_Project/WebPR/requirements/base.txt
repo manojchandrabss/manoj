@@ -9,7 +9,7 @@ click==6.2
 # fails. Dmitry Gorobets tried on Chattifly project, so let's wait
 # few months before using 1.9 (it gets bugs polished and packaged will
 # bring 1.9 support)
-django==1.9.1
+django==1.11.29
 django-appconf==1.0.1
 
 # ORM Caching layer for Django Models
